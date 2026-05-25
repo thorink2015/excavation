@@ -1,0 +1,40 @@
+<section class="gw-section gw-cta">
+  <div class="gw-container gw-cta-grid">
+    <div>
+      <span class="gw-eyebrow" style="color:var(--gw-clay)">Ready to dig?</span>
+      <h2>Get a quote in 24 hours.</h2>
+      <p class="gw-cta-lead">Send the scope. We'll walk the site if needed, and put a number in your inbox the next business day.</p>
+      <div>
+        <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#8b847b;">Or call directly</div>
+        <a href="tel:<%= it.phone_e164 %>" class="gw-cta-phone"><%= it.phone %></a>
+      </div>
+    </div>
+    <form class="gw-form" novalidate>
+      <h3>Tell us about your project.</h3>
+      <div class="gw-form-row">
+        <input type="text" name="first_name" placeholder="First name" required />
+        <input type="text" name="last_name"  placeholder="Last name" required />
+      </div>
+      <div class="gw-form-row">
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="tel"   name="phone" placeholder="Phone" />
+      </div>
+      <div class="gw-form-row single">
+        <select name="project_type">
+          <option value="">Project type…</option>
+          <option>New Build</option>
+          <option>Pool / Spa</option>
+          <option>ADU</option>
+          <option>Utility Trenching</option>
+          <option>Demolition</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="gw-form-row single">
+        <textarea name="notes" placeholder="Scope, address, target start date…"></textarea>
+      </div>
+      <button type="submit" class="gw-btn gw-btn-primary" style="width:100%">Get Free Quote</button>
+      <div class="gw-form-success">Got it. We'll be in touch within 24 hours.</div>
+    </form>
+  </div>
+</section>

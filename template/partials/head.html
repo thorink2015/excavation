@@ -1,0 +1,19 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title><%= it.seo_title %></title>
+<meta name="description" content="<%= it.seo_description %>" />
+<link rel="canonical" href="<%= it.canonical %>" />
+<meta name="robots" content="noindex" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="<%= it.seo_title %>" />
+<meta property="og:description" content="<%= it.seo_description %>" />
+<meta property="og:url" content="<%= it.canonical %>" />
+<meta property="og:image" content="<%= it.hero_image %>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link rel="stylesheet" href="/assets/site.css" />
+
+<script type="application/ld+json"><%~ it.json_ld %></script>

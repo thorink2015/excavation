@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span><a href="/<%= it.slug %>/services/">Services</a><span class="gw-breadcrumb-sep">/</span>Grading</nav>
+    <span class="gw-eyebrow">Service</span>
+    <h1>Grading in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></h1>
+    <p class="gw-page-sub">Rough and finish grade for building pads, driveways, parking lots, and yards. Laser-leveled tolerances where the spec calls for it.</p>
+    <div class="gw-pill-row">
+      <span class="gw-pill gw-pill-clay">Quote in 24 hours</span>
+      <span class="gw-pill">Laser-leveled</span>
+      <span class="gw-pill">Drainage planned</span>
+    </div>
+  </div>
+</section>
+
+<section class="gw-content-grid gw-container">
+  <article class="gw-prose">
+    <h2>What grading covers</h2>
+    <ul>
+      <li><strong>Building pad grade</strong> — flat, compacted, and to elevation</li>
+      <li><strong>Driveway and parking lot base</strong> — sloped for drainage</li>
+      <li><strong>Yard grading</strong> — drainage away from the foundation</li>
+      <li><strong>Slope and retaining preparation</strong></li>
+      <li><strong>Final / finish grade</strong> for sod, hardscape, or asphalt</li>
+    </ul>
+
+    <h2>Rough grade vs. finish grade</h2>
+    <p>Two different jobs that often get blurred:</p>
+    <p><strong>Rough grade</strong> is where you take a dug hole or a raw lot and shape it. Tolerances are typically plus or minus a couple inches. Good enough for the foundation crew to lay out.</p>
+    <p><strong>Finish grade</strong> is the last pass before pavement, sod, or hardscape goes down. Tolerances tighten to fractions of an inch in places. Drainage paths get final shape so water moves where it's supposed to.</p>
+    <p>Both matter. Skip the second and you'll see standing water against your foundation by year two.</p>
+
+    <h2>Drainage is where most grading goes wrong</h2>
+    <p>A flat lot looks neat. A flat lot floods. We grade in:</p>
+    <ul>
+      <li>A minimum 2% fall away from the foundation</li>
+      <li>Swales where surface water needs a path</li>
+      <li>French drain inlets where surface drainage isn't enough</li>
+      <li>Crowns and cross-slopes on driveways so they shed water</li>
+    </ul>
+    <p>If your project has any natural slope coming toward the structure, we want to know about it on the first call.</p>
+
+    <h2>Compaction</h2>
+    <p>Grade without compaction is theatre. Loose fill settles, and everything you put on top of it cracks, dips, or shifts. We compact every lift, and we'll show you the test results if your inspector or engineer wants them.</p>
+
+    <h2>Equipment</h2>
+    <p>For most jobs we run skid steers with grading boxes and laser systems. Bigger commercial pads bring in motor graders or dozers with GPS. Either way the spec gets hit.</p>
+  </article>
+
+  <aside class="gw-sidebar" aria-label="Related services">
+    <h3>Other services</h3>
+    <ul>
+      <li><a href="/<%= it.slug %>/services/excavation/">Excavation</a></li>
+      <li><a href="/<%= it.slug %>/services/utility-trenching/">Utility Trenching</a></li>
+      <li><a href="/<%= it.slug %>/services/grading/" aria-current="page">Grading</a></li>
+      <li><a href="/<%= it.slug %>/services/demolition/">Demolition</a></li>
+      <li><a href="/<%= it.slug %>/services/">All services →</a></li>
+    </ul>
+    <div class="gw-sidebar-divider"></div>
+    <h3>Quick contact</h3>
+    <ul>
+      <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+      <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+    </ul>
+    <div class="gw-sidebar-cta">
+      <p>Need a number on grading?</p>
+      <a href="/<%= it.slug %>/contact/">Get a quote →</a>
+    </div>
+  </aside>
+</section>
+
+<%~ include('../../partials/cta-band.html', it) %>
+<%~ include('../../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

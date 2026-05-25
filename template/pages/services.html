@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>Services</nav>
+    <span class="gw-eyebrow">Services</span>
+    <h1>Excavation, trenching, grading, and everything in between.</h1>
+    <p class="gw-page-sub">A short list of what we actually do well. If it doesn't fit one of these, we'll tell you straight up and point you to someone we trust.</p>
+  </div>
+</section>
+
+<section class="gw-section">
+  <div class="gw-container">
+    <div class="gw-feature-grid">
+
+      <article class="gw-feature">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><polyline points="3 17 9 11 13 15 21 7"/><polyline points="14 7 21 7 21 14"/></svg>
+        <h3>Excavation</h3>
+        <p>Foundations, basements, swimming pools, full site digs. Cut to grade, hauled off-site, ready for the next trade.</p>
+        <a class="gw-feature-link" href="/<%= it.slug %>/services/excavation/">Excavation services</a>
+      </article>
+
+      <article class="gw-feature">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><line x1="2" y1="20" x2="22" y2="20"/><polyline points="4 16 8 12 12 14 16 8 20 12"/></svg>
+        <h3>Utility Trenching</h3>
+        <p>Water, sewer, gas, electric, and data. Locates handled, depth and bedding spec'd, lines protected through backfill.</p>
+        <a class="gw-feature-link" href="/<%= it.slug %>/services/utility-trenching/">Trenching services</a>
+      </article>
+
+      <article class="gw-feature">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><polyline points="2 18 8 12 12 14 22 6"/><polyline points="16 6 22 6 22 12"/></svg>
+        <h3>Grading</h3>
+        <p>Rough and finish grade. Building pads, driveways, parking lots. Laser-leveled tolerances when the spec calls for it.</p>
+        <a class="gw-feature-link" href="/<%= it.slug %>/services/grading/">Grading services</a>
+      </article>
+
+      <article class="gw-feature">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><polygon points="2 22 5 15 12 8 16 12 9 19 2 22"/><line x1="14" y1="6" x2="20" y2="12"/></svg>
+        <h3>Demolition</h3>
+        <p>Small-to-medium structure tear-out: sheds, garages, slabs, pools, partial interior demo. Hauled and disposed.</p>
+        <a class="gw-feature-link" href="/<%= it.slug %>/services/demolition/">Demolition services</a>
+      </article>
+
+      <article class="gw-feature">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M12 22V8"/><path d="M5 12 12 4l7 8"/><path d="M3 22h18"/></svg>
+        <h3>Land Clearing</h3>
+        <p>Brush, stumps, scrub, and tree removal. Lot opened up, root balls pulled, ready for grading.</p>
+      </article>
+
+      <article class="gw-feature">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><rect x="1" y="8" width="14" height="9"/><polygon points="15 11 22 11 22 17 15 17"/><circle cx="6" cy="20" r="2"/><circle cx="18" cy="20" r="2"/></svg>
+        <h3>Hauling & Disposal</h3>
+        <p>Dirt, gravel, concrete, debris. In and out. We have the dump trucks; you don't have to coordinate a separate vendor.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="gw-section gw-why">
+  <div class="gw-container">
+    <span class="gw-eyebrow">Our approach</span>
+    <h2>One crew, end-to-end.</h2>
+    <p class="gw-section-lead" style="max-width:60ch">Most projects need two or three of these services together. We bundle them under one quote, one schedule, one phone number. No coordinating between subs.</p>
+    <div class="gw-why-grid">
+      <div class="gw-why-item"><h3>One quote.</h3><p>Itemized but unified. You see every line, but you only sign one number.</p></div>
+      <div class="gw-why-item"><h3>One schedule.</h3><p>Excavation, trenching, and grading sequenced in order. No handoff gaps.</p></div>
+      <div class="gw-why-item"><h3>One point of contact.</h3><p>The owner runs the job. Direct line for changes, questions, and the inevitable mid-dig surprise.</p></div>
+    </div>
+  </div>
+</section>
+
+<%~ include('../partials/cta-band.html', it) %>
+<%~ include('../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

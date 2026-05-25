@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span><a href="/<%= it.slug %>/services/">Services</a><span class="gw-breadcrumb-sep">/</span>Utility Trenching</nav>
+    <span class="gw-eyebrow">Service</span>
+    <h1>Utility trenching in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></h1>
+    <p class="gw-page-sub">Water, sewer, gas, electric, and data. Spec depth, proper bedding, lines protected through backfill. Locates handled before we cut.</p>
+    <div class="gw-pill-row">
+      <span class="gw-pill gw-pill-clay">811 / USA coordinated</span>
+      <span class="gw-pill">Spec-depth bedding</span>
+      <span class="gw-pill">Tracer wire installed</span>
+    </div>
+  </div>
+</section>
+
+<section class="gw-content-grid gw-container">
+  <article class="gw-prose">
+    <h2>What we trench</h2>
+    <ul>
+      <li><strong>Water service</strong> from main to meter, meter to house</li>
+      <li><strong>Sewer lateral</strong> from house to main, including cleanouts</li>
+      <li><strong>Gas service</strong> coordinated with the utility</li>
+      <li><strong>Electric service</strong> to spec (conduit, sweeps, pull-string)</li>
+      <li><strong>Data and low-voltage</strong> conduit runs</li>
+      <li><strong>Irrigation</strong> mainlines and sleeves</li>
+      <li><strong>French drains</strong> and surface drainage</li>
+    </ul>
+
+    <h2>How we run a trench</h2>
+    <p>Trenching is unforgiving. Two inches too shallow and the inspector fails you. Bad bedding and your line cracks the first time the ground moves. We don't shortcut any of the following:</p>
+    <ol>
+      <li><strong>Locate first.</strong> 811 / USA tickets in 72 hours before we break ground. We hand-dig anything near a marked line.</li>
+      <li><strong>Trench to spec.</strong> Depth depends on what's in the trench. Water below frost line. Sewer at the slope your engineer drew. Gas, electric, and data per your local AHJ.</li>
+      <li><strong>Bed and bury properly.</strong> Sand or pea gravel beneath and around the line. No native fill against the pipe.</li>
+      <li><strong>Tracer wire and warning tape.</strong> On every non-metallic line. So the next person who digs there finds it before they hit it.</li>
+      <li><strong>Compaction in lifts.</strong> Settling cracks pavement and breaks lines. We compact every 6 to 8 inches.</li>
+    </ol>
+
+    <h2>Permits and inspections</h2>
+    <p>Most utility trenches need a city or county permit and an open-trench inspection before backfill. We coordinate with the inspector. If you're doing the permit yourself, we'll tell you what to ask for.</p>
+
+    <h2>Coordinating with other trades</h2>
+    <p>Trenches usually run between the plumbing rough-in, electric rough-in, and the concrete pour. We sequence around your other subs. If you're general-contracting your own build, we'll walk you through what needs to be where before our crew shows up.</p>
+
+    <h2>Restoration after backfill</h2>
+    <p>We don't do the asphalt or sod patch ourselves. But we leave the trench compacted and graded to within an inch of finish so your paver or landscaper can drop right in. If you need patch work coordinated, we have crews we trust and can quote it for you.</p>
+  </article>
+
+  <aside class="gw-sidebar" aria-label="Related services">
+    <h3>Other services</h3>
+    <ul>
+      <li><a href="/<%= it.slug %>/services/excavation/">Excavation</a></li>
+      <li><a href="/<%= it.slug %>/services/utility-trenching/" aria-current="page">Utility Trenching</a></li>
+      <li><a href="/<%= it.slug %>/services/grading/">Grading</a></li>
+      <li><a href="/<%= it.slug %>/services/demolition/">Demolition</a></li>
+      <li><a href="/<%= it.slug %>/services/">All services →</a></li>
+    </ul>
+    <div class="gw-sidebar-divider"></div>
+    <h3>Quick contact</h3>
+    <ul>
+      <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+      <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+    </ul>
+    <div class="gw-sidebar-cta">
+      <p>Need a number on your trench?</p>
+      <a href="/<%= it.slug %>/contact/">Get a quote →</a>
+    </div>
+  </aside>
+</section>
+
+<%~ include('../../partials/cta-band.html', it) %>
+<%~ include('../../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

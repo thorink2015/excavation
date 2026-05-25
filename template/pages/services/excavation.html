@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span><a href="/<%= it.slug %>/services/">Services</a><span class="gw-breadcrumb-sep">/</span>Excavation</nav>
+    <span class="gw-eyebrow">Service</span>
+    <h1>Excavation in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></h1>
+    <p class="gw-page-sub">Foundations, basements, pools, and full site digs. Cut clean to grade, hauled off-site, and inspection-ready for the next trade.</p>
+    <div class="gw-pill-row">
+      <span class="gw-pill gw-pill-clay">Quote in 24 hours</span>
+      <span class="gw-pill">Tight-lot capable</span>
+      <span class="gw-pill">Locates handled</span>
+    </div>
+  </div>
+</section>
+
+<section class="gw-content-grid gw-container">
+  <article class="gw-prose">
+    <h2>What's included</h2>
+    <ul>
+      <li>Site walk and dig plan review</li>
+      <li>USA / 811 locate coordination</li>
+      <li>Tree and brush clearing in the dig footprint</li>
+      <li>Excavation to spec depth and slope</li>
+      <li>Spoils stockpile or direct haul-off</li>
+      <li>Shoring or benching when grade requires it</li>
+      <li>Rough backfill and compaction after foundation</li>
+      <li>Final clean-up of the dig area</li>
+    </ul>
+
+    <h2>When you need it</h2>
+    <p>Excavation is the first scope on most new builds. You need a dig when you're putting in:</p>
+    <ul>
+      <li>A new house foundation, basement, or crawl space</li>
+      <li>An ADU, garage, or out-building pad</li>
+      <li>A swimming pool or spa</li>
+      <li>A commercial slab or footing system</li>
+      <li>A septic tank, leach field, or rainwater system</li>
+    </ul>
+    <p>If your project sits on rock, in clay, or on a sloped lot, get us out for a site walk before you finalize the budget. A bad dig assumption upstream blows up the whole schedule.</p>
+
+    <h2>How we quote</h2>
+    <p>Most jobs we can quote off the plans plus a 15-minute site walk. We give you an itemized number with separate lines for:</p>
+    <ol>
+      <li>Mobilization and demobilization</li>
+      <li>Excavation by cubic yard at spec depth</li>
+      <li>Haul-off (or fill if you need it brought back)</li>
+      <li>Backfill and compaction after the concrete crew</li>
+      <li>Contingency for unknowns: rock, water, unmarked utilities</li>
+    </ol>
+    <p>If conditions change underground, we stop and call. We don't quietly run up the change orders.</p>
+
+    <h2>Equipment</h2>
+    <p>We size the machine to the lot, not the other way around. Most residential digs run on mini or compact excavators that fit through a 6-foot side yard. Bigger lots get bigger iron. Skid steers handle the spoils.</p>
+
+    <h2>Pricing transparency</h2>
+    <p>Excavation pricing in <%= it.city %> varies more than most trades. The biggest swings come from:</p>
+    <ul>
+      <li><strong>Soil conditions:</strong> rocky or clay-heavy soil takes longer and dulls more teeth.</li>
+      <li><strong>Access:</strong> a tight side-yard adds time and limits machine choice.</li>
+      <li><strong>Haul distance:</strong> dump fees and trucking add up if the dump site is far.</li>
+      <li><strong>Depth:</strong> deeper digs need shoring or benching for safety.</li>
+    </ul>
+    <p>We'll give you a real ballpark on the first call. The detailed itemization comes after we've seen the site.</p>
+  </article>
+
+  <aside class="gw-sidebar" aria-label="Related services">
+    <h3>Other services</h3>
+    <ul>
+      <li><a href="/<%= it.slug %>/services/excavation/" aria-current="page">Excavation</a></li>
+      <li><a href="/<%= it.slug %>/services/utility-trenching/">Utility Trenching</a></li>
+      <li><a href="/<%= it.slug %>/services/grading/">Grading</a></li>
+      <li><a href="/<%= it.slug %>/services/demolition/">Demolition</a></li>
+      <li><a href="/<%= it.slug %>/services/">All services →</a></li>
+    </ul>
+    <div class="gw-sidebar-divider"></div>
+    <h3>Quick contact</h3>
+    <ul>
+      <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+      <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+    </ul>
+    <div class="gw-sidebar-cta">
+      <p>Need a number on your dig?</p>
+      <a href="/<%= it.slug %>/contact/">Get a quote →</a>
+    </div>
+  </aside>
+</section>
+
+<%~ include('../../partials/cta-band.html', it) %>
+<%~ include('../../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

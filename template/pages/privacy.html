@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>Privacy Policy</nav>
+    <h1>Privacy Policy</h1>
+    <p class="gw-page-sub">Last updated: January 2026. Short version: we only collect what you send us, we only use it to quote your job, and we don't sell anything to anyone.</p>
+  </div>
+</section>
+
+<section class="gw-section">
+  <div class="gw-container">
+    <article class="gw-prose">
+      <h2>Who we are</h2>
+      <p>This site is operated by <%= it.business_name %>, based in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %>. You can reach us at <a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a><% if (it.email) { %> or <a href="mailto:<%= it.email %>"><%= it.email %></a><% } %>.</p>
+
+      <h2>What we collect</h2>
+      <p>When you submit a quote request through our contact form, we collect:</p>
+      <ul>
+        <li>Your name</li>
+        <li>Your email address</li>
+        <li>Your phone number (optional)</li>
+        <li>Your project address (optional)</li>
+        <li>Whatever you write in the project notes</li>
+      </ul>
+      <p>That's it. We don't run third-party analytics, advertising trackers, or session replay tools on this site.</p>
+
+      <h2>How we use it</h2>
+      <p>The information you send us is used for one purpose: to quote your project and stay in touch about it. We may follow up by phone or email if your request is unclear or if your project moves forward.</p>
+
+      <h2>Who we share it with</h2>
+      <p>We don't sell your information. We don't trade it. We don't share it with marketing partners.</p>
+      <p>The only times we'd share your information are:</p>
+      <ul>
+        <li>If you ask us to (for example, looping in a sub-trade you've hired)</li>
+        <li>If we're required by law or a valid court order</li>
+        <li>If our business is ever sold, your information would transfer to the new owners under this same policy</li>
+      </ul>
+
+      <h2>How long we keep it</h2>
+      <p>Active quote requests stay in our system as long as the project is active, plus seven years for accounting and tax purposes. If you'd like us to delete your information sooner, email us and we'll do it.</p>
+
+      <h2>Cookies</h2>
+      <p>This site uses no tracking cookies. Your browser may store basic functional cookies (like remembering whether you've dismissed a banner) but nothing that identifies you personally.</p>
+
+      <h2>Your rights</h2>
+      <p>You can ask us at any time to:</p>
+      <ul>
+        <li>Tell you what we have on file about you</li>
+        <li>Correct anything that's wrong</li>
+        <li>Delete your information</li>
+      </ul>
+      <p>Email <% if (it.email) { %><a href="mailto:<%= it.email %>"><%= it.email %></a><% } else { %>us<% } %> and we'll handle it within 30 days.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If we change anything material here, we'll update the date at the top and post a note on the homepage. For minor edits (typos, clarifications), we just update the date.</p>
+    </article>
+  </div>
+</section>
+
+<%~ include('../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

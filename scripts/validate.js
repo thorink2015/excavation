@@ -40,16 +40,19 @@ const assetSet = new Set(listFiles(path.join(DIST, 'assets')).map((p) => `/asset
 
 let hardErrors = 0;
 let softWarnings = 0;
-const slugs = new Set();
-const duplicates = [];
+const businessSlugs = new Set();
+const duplicateBusinessSlugs = [];
 
 console.log(`Validating ${pages.length} page(s)...`);
 
 for (const file of pages) {
-  const slug = path.basename(path.dirname(file));
-  if (slug !== '.' && slug !== 'dist') {
-    if (slugs.has(slug)) duplicates.push(slug);
-    slugs.add(slug);
+  // Top-level dir under dist/ is the business slug; deeper dirs are page routes within a business.
+  const rel = path.relative(DIST, file);
+  const topLevel = rel.split(path.sep)[0];
+  if (topLevel && topLevel !== 'index.html' && topLevel !== 'assets') {
+    // Track distinct business slugs (no duplicate detection needed here since slugify already dedupes
+    // per business — we only count them to verify the build produced the right number).
+    businessSlugs.add(topLevel);
   }
 
   const html = fs.readFileSync(file, 'utf8');
@@ -103,19 +106,24 @@ if (fs.existsSync(CSV)) {
   const rows = parseCsv(fs.readFileSync(CSV, 'utf8'), {
     columns: true, skip_empty_lines: true, trim: true, bom: true, relax_column_count: true,
   });
-  const businessPages = pages.filter((p) => path.dirname(p) !== DIST).length;
-  if (businessPages !== rows.length) {
+  if (businessSlugs.size !== rows.length) {
     hardErrors++;
-    console.error(`\n✗ page count ${businessPages} != CSV row count ${rows.length}`);
+    console.error(`\n✗ business slug count ${businessSlugs.size} != CSV row count ${rows.length}`);
+  }
+  // Each business should have the same number of pages (verifies no page failed to render).
+  const pagesPerBusiness = new Map();
+  for (const slug of businessSlugs) {
+    pagesPerBusiness.set(slug, pages.filter((p) => path.relative(DIST, p).split(path.sep)[0] === slug).length);
+  }
+  const counts = new Set(pagesPerBusiness.values());
+  if (counts.size > 1) {
+    hardErrors++;
+    console.error(`\n✗ inconsistent page counts across businesses:`);
+    for (const [slug, n] of pagesPerBusiness) console.error(`    ${slug}: ${n} pages`);
   }
 }
 
-if (duplicates.length) {
-  hardErrors += duplicates.length;
-  console.error(`\n✗ duplicate slug(s): ${duplicates.join(', ')}`);
-}
-
-console.log(`\n${pages.length} pages scanned · ${hardErrors} errors · ${softWarnings} warnings`);
+console.log(`\n${pages.length} pages scanned across ${businessSlugs.size} businesses · ${hardErrors} errors · ${softWarnings} warnings`);
 process.exit(hardErrors === 0 ? 0 : 1);
 
 function listPages(dir) {

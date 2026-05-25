@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>Service Area</nav>
+    <span class="gw-eyebrow">Service area</span>
+    <h1>Based in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %>.</h1>
+    <p class="gw-page-sub">Most of our work is within an hour of home base. We'll travel further for the right project — just ask.</p>
+  </div>
+</section>
+
+<section class="gw-content-grid gw-container">
+  <article class="gw-prose">
+    <h2>Where we work</h2>
+    <p>Our crews are based out of <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %>. We cover the metro area and most of the surrounding county on a daily basis. Travel beyond that depends on the size of the job — bigger jobs justify a longer drive.</p>
+
+    <h2>Inside our typical range</h2>
+    <p>If your project is within 30 to 45 minutes of <%= it.city %>, we're on it without a surcharge. Daily mobilization is built into the quote.</p>
+    <ul>
+      <li><%= it.city %> (home base)</li>
+      <li>Surrounding metro neighborhoods</li>
+      <li>Nearby unincorporated areas</li>
+      <li>Most of the county</li>
+    </ul>
+
+    <h2>Outside our typical range</h2>
+    <p>For projects further out, we still want to hear from you. Bigger jobs (week-plus on site, multiple service combinations) usually work fine at a slightly longer drive. We just price the mobilization separately and tell you up front.</p>
+
+    <h2>How we figure mobilization</h2>
+    <p>Mobilization isn't a fudge factor — it's real cost. Crew drive time, machine trucking, fuel. We break it out on the quote so you can see it. Typical bands:</p>
+    <ul>
+      <li><strong>Same city / metro:</strong> built into the quote, no separate line</li>
+      <li><strong>Same county, longer drive:</strong> small per-day mobilization</li>
+      <li><strong>Out of county:</strong> per-load trucking quoted separately, plus crew travel</li>
+    </ul>
+
+    <h2>Not sure if you're in range?</h2>
+    <p><a href="/<%= it.slug %>/contact/">Send us the address.</a> Or just call. We'll tell you in 30 seconds whether your project is something we should bid.</p>
+  </article>
+
+  <aside class="gw-sidebar" aria-label="Find us">
+    <h3>Find us</h3>
+    <ul>
+      <% if (it.address_full) { %><li><%= it.address_full %></li><% } %>
+      <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+      <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+    </ul>
+    <% if (it.map_embed_url) { %>
+      <div style="margin-top:16px;border:1px solid var(--gw-line);overflow:hidden;aspect-ratio:1/1">
+        <iframe src="<%= it.map_embed_url %>" width="100%" height="100%" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of <%= it.business_name %>"></iframe>
+      </div>
+    <% } %>
+    <div class="gw-sidebar-cta">
+      <p>Not sure if you're in range?</p>
+      <a href="/<%= it.slug %>/contact/">Ask us →</a>
+    </div>
+  </aside>
+</section>
+
+<%~ include('../partials/cta-band.html', it) %>
+<%~ include('../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

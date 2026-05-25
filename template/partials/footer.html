@@ -1,0 +1,44 @@
+<footer class="gw-footer">
+  <div class="gw-container">
+    <div class="gw-footer-grid-full">
+      <div class="gw-footer-brand">
+        <div class="gw-logo" style="color:#fff;margin-bottom:12px;font-size:1.5rem"><%= it.business_name %><span class="gw-dot">.</span></div>
+        <p style="max-width:38ch"><%= it.business_name %> is an excavation and site-prep crew serving <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> and the surrounding area. Licensed, insured, owner-operated.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/<%= it.slug %>/services/excavation/">Excavation</a></li>
+          <li><a href="/<%= it.slug %>/services/utility-trenching/">Utility Trenching</a></li>
+          <li><a href="/<%= it.slug %>/services/grading/">Grading</a></li>
+          <li><a href="/<%= it.slug %>/services/demolition/">Demolition</a></li>
+          <li><a href="/<%= it.slug %>/services/">All services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/<%= it.slug %>/about/">About</a></li>
+          <li><a href="/<%= it.slug %>/industries/">Industries we serve</a></li>
+          <li><a href="/<%= it.slug %>/service-area/">Service area</a></li>
+          <li><a href="/<%= it.slug %>/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+          <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+          <% if (it.address_full) { %><li><%= it.address_full %></li><% } %>
+        </ul>
+      </div>
+    </div>
+    <div class="gw-footer-bottom">
+      <div>&copy; <span class="gw-year">2026</span> <%= it.business_name %>. All rights reserved.</div>
+      <div class="gw-footer-legal">
+        <a href="/<%= it.slug %>/privacy/">Privacy</a>
+        <a href="/<%= it.slug %>/terms/">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>

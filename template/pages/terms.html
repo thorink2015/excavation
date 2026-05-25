@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>Terms of Service</nav>
+    <h1>Terms of Service</h1>
+    <p class="gw-page-sub">Last updated: January 2026. These terms cover use of this website. The actual contract for any work we do for you is a separate document — your signed estimate or contract.</p>
+  </div>
+</section>
+
+<section class="gw-section">
+  <div class="gw-container">
+    <article class="gw-prose">
+      <h2>Using this site</h2>
+      <p>This website is published by <%= it.business_name %>. By using it, you agree to use it for lawful purposes only and to not interfere with its operation. That covers things like attempting to scrape it at scale, running denial-of-service attacks, or trying to break into systems you don't have permission to access.</p>
+
+      <h2>The information on this site</h2>
+      <p>We do our best to keep everything accurate and up to date, but content here is provided for informational purposes only. Pricing examples, timelines, equipment lists, and service descriptions are general. The actual scope, schedule, and price for any project is set in your signed estimate.</p>
+      <p>If something on this site contradicts a written estimate or contract you have with us, the written document wins.</p>
+
+      <h2>Quote requests</h2>
+      <p>Submitting the contact form on this site is a request for a quote, not a contract. A quote becomes binding only after both parties sign it.</p>
+
+      <h2>Limits on liability</h2>
+      <p>This site is provided "as is." We're not liable for indirect damages stemming from your use of the site (for example, business decisions you made based on something you read here). For the actual work we do for you, the limits of liability are set in your signed contract.</p>
+
+      <h2>Third-party links</h2>
+      <p>This site may link to third-party websites (a permit portal, an industry association, a tool we recommend). We don't control those sites and aren't responsible for their content or practices. Use them at your own discretion.</p>
+
+      <h2>Intellectual property</h2>
+      <p>The text, layout, and images on this site are owned by <%= it.business_name %> (or used with permission of their owners). Don't republish them on another site without our written permission.</p>
+
+      <h2>Governing law</h2>
+      <p>These terms are governed by the laws of <% if (it.state_code === 'CA') { %>the State of California<% } else if (it.state) { %>the State of <%= it.state %><% } else { %>the state in which <%= it.business_name %> is headquartered<% } %>. Any disputes will be resolved in courts located in that state.</p>
+
+      <h2>Changes to these terms</h2>
+      <p>We may update these terms from time to time. The "last updated" date at the top will reflect the most recent change. Continued use of the site after changes are posted means you accept the new terms.</p>
+
+      <h2>Contact</h2>
+      <p>Questions about these terms? Email <% if (it.email) { %><a href="mailto:<%= it.email %>"><%= it.email %></a><% } else { %>us through the <a href="/<%= it.slug %>/contact/">contact page</a><% } %>.</p>
+    </article>
+  </div>
+</section>
+
+<%~ include('../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

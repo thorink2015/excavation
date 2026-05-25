@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../partials/header.html', it) %>
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>About</nav>
+    <span class="gw-eyebrow">About <%= it.business_name %></span>
+    <h1>Built on the job site, not in a boardroom.</h1>
+    <p class="gw-page-sub">We've been moving dirt in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> the same way since day one: show up early, do clean work, leave a site the next crew can roll right into.</p>
+  </div>
+</section>
+
+<section class="gw-content-grid gw-container">
+  <article class="gw-prose">
+    <h2>Who we are</h2>
+    <p><%= it.business_name %> is an owner-operated excavation and site-prep crew. We don't subcontract out the core work. The crew that quotes your job is the crew you'll see on site.</p>
+    <p>Most of what we do is residential and light commercial: foundation digs, utility trenching, grading, demolition, and clearing. We work directly with builders, GCs, pool contractors, and homeowners with a clear scope.</p>
+
+    <h2>What we believe</h2>
+    <p><strong>Quotes should be honest.</strong> If we can see something on the plans that's going to bite the budget later, we say it up front. If we don't know what's under the dirt, we tell you that too and price it transparently.</p>
+    <p><strong>Schedules should mean something.</strong> The crew is on the day promised. If weather or a permit kicks us, you hear about it the morning of, not when you show up to an empty site.</p>
+    <p><strong>Clean sites win the next job.</strong> Every project ends the same way: site graded, debris hauled, lay-down area swept. The next trade walks in and gets going.</p>
+
+    <h2>Our equipment</h2>
+    <p>We run a fleet built around access and precision rather than just raw size. A small machine on a tight lot beats a big one stuck on the street.</p>
+    <ul>
+      <li>Mini and compact excavators for tight-lot work</li>
+      <li>Skid steers with grading attachments</li>
+      <li>Trenchers for utility runs</li>
+      <li>Compactors, plates, and laser-leveled finishing tools</li>
+      <li>Dump trucks for direct haul-off</li>
+    </ul>
+
+    <h2>Licensed, bonded, insured</h2>
+    <p>We carry full general liability and workers' comp. License documentation and certificates of insurance available on request before we break ground. Don't hire anyone who can't show you both.</p>
+
+    <h2>Service area</h2>
+    <p>Headquartered in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %>, we cover the surrounding metro and most of the surrounding county. <a href="/<%= it.slug %>/service-area/">See our full service area</a> for specifics, or just <a href="/<%= it.slug %>/contact/">ask</a> — we'll tell you straight up if your job is in range.</p>
+  </article>
+
+  <aside class="gw-sidebar" aria-label="Quick facts">
+    <h3>Quick facts</h3>
+    <ul>
+      <li><strong style="color:var(--gw-ink)">Owner-operated</strong></li>
+      <li><strong style="color:var(--gw-ink)">Licensed & insured</strong></li>
+      <li><strong style="color:var(--gw-ink)">24-hour quotes</strong></li>
+      <% if (it.rating_avg) { %><li><strong style="color:var(--gw-ink)"><%= it.rating_avg.toFixed(1) %>/5</strong> across <%= it.review_count %> Google reviews</li><% } %>
+      <% if (it.address_full) { %><li><strong style="color:var(--gw-ink)">Based in</strong> <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></li><% } %>
+    </ul>
+    <div class="gw-sidebar-divider"></div>
+    <h3>Get in touch</h3>
+    <ul>
+      <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+      <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+    </ul>
+    <div class="gw-sidebar-cta">
+      <p>Need a number on your project?</p>
+      <a href="/<%= it.slug %>/contact/">Request a quote →</a>
+    </div>
+  </aside>
+</section>
+
+<%~ include('../partials/cta-band.html', it) %>
+<%~ include('../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
