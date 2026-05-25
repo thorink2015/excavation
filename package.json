@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "description": "Generate personalized landing pages for 1000+ excavation businesses from a CSV.",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "build": "node scripts/build.js",
     "urls": "node scripts/write-urls.js",
