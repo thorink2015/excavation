@@ -111,8 +111,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 .gw-nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 14px; }
 
-/* Right-side group: phone CTA + hamburger sit together, flush right */
-.gw-nav-actions { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; }
+/* Right-side group: phone CTA + hamburger sit together. Natural space-between
+   on the parent nav puts the logo at the left edge, this group at the right
+   edge, and the nav-links centered on desktop (or hidden on mobile). */
+.gw-nav-actions { display: inline-flex; align-items: center; gap: 8px; }
 
 /* Hamburger button */
 .gw-nav-toggle { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
