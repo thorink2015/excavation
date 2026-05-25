@@ -115,7 +115,7 @@ img { max-width: 100%; height: auto; display: block; }
 .gd-btn-lg { padding: 16px 28px; font-size: 15px; min-height: 52px; }
 
 /* ════════════════ HERO ════════════════ */
-.gd-hero { position: relative; padding: clamp(24px, 4vw, 40px) 0 clamp(56px, 8vw, 96px); overflow: hidden; text-align: center; }
+.gd-hero { position: relative; padding: 20px 0 clamp(56px, 8vw, 96px); overflow: hidden; text-align: center; }
 .gd-hero-bg {
   position: absolute; inset: 0;
   background:
@@ -237,41 +237,53 @@ img { max-width: 100%; height: auto; display: block; }
 @media (max-width: 540px) { .gd-bento { grid-template-columns: 1fr; } }
 
 /* ════════════════ PROCESS STEPS ════════════════ */
-/* Clean 5-card grid. No rail, no positioning hacks. Each card is self-contained
-   with a big accent number, day label, headline, body. Adapts: 5→3→1 cols. */
-.gd-steps {
+/* ════════════════ INTERRUPT-RAIL TIMELINE ════════════════ */
+/* Vertical accent rail running left of the content. Each step's day pill
+   sits ON the rail with the section background color, visually "interrupting"
+   the rail where the day label is. Only 3 steps, clean and tight. */
+.gd-rail {
   list-style: none; padding: 0; margin: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 14px;
+  position: relative;
+  max-width: 640px; margin-inline: auto;
+  padding-left: 0;
 }
-.gd-step {
-  background: var(--gd-surface);
-  border: 1px solid var(--gd-border);
-  border-radius: var(--gd-radius-lg);
-  padding: 26px 22px;
-  display: flex; flex-direction: column;
-  transition: border-color .2s, transform .2s, box-shadow .2s;
+.gd-rail::before {
+  /* The continuous accent rail */
+  content: ''; position: absolute;
+  left: 84px; top: 36px; bottom: 36px;
+  width: 2px;
+  background: var(--gd-accent);
+  opacity: 0.4;
+  z-index: 0;
 }
-.gd-step:hover { border-color: var(--gd-ink-2); transform: translateY(-2px); box-shadow: 0 18px 36px -18px rgba(0,0,0,0.12); }
-.gd-step-num {
-  font-family: 'Inter', sans-serif;
-  font-size: 2rem; font-weight: 800;
-  letter-spacing: -0.04em;
+.gd-rail-step {
+  position: relative;
+  padding: 32px 0 32px 130px;
+  min-height: 96px;
+}
+.gd-rail-day {
+  /* The day pill sits ON the rail at left:84 (rail) ± half its width.
+     Background matches the section (bg-2), creating the visual interrupt. */
+  position: absolute;
+  left: 52px; top: 38px;
+  background: var(--gd-bg-2);
   color: var(--gd-accent);
-  line-height: 1;
-  margin-bottom: 14px;
-}
-.gd-step-day {
-  font-size: 11px; font-weight: 700; color: var(--gd-muted);
+  padding: 6px 12px;
+  font-size: 11.5px; font-weight: 700;
   letter-spacing: 0.12em; text-transform: uppercase;
-  margin-bottom: 12px;
+  border-radius: 6px;
+  z-index: 1;
+  white-space: nowrap;
+  border: 1.5px solid var(--gd-accent);
 }
-.gd-step h3 { margin-bottom: 8px; font-size: 1rem; line-height: 1.3; }
-.gd-step p { font-size: 13.5px; color: var(--gd-muted); line-height: 1.5; margin: 0; }
+.gd-rail-body h3 { margin: 0 0 8px; font-size: 1.125rem; line-height: 1.3; }
+.gd-rail-body p { color: var(--gd-muted); font-size: 14.5px; line-height: 1.55; margin: 0; }
 
-@media (max-width: 1080px) { .gd-steps { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 640px)  { .gd-steps { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .gd-rail::before { left: 36px; }
+  .gd-rail-step { padding: 28px 0 28px 86px; min-height: 0; }
+  .gd-rail-day { left: 8px; }
+}
 
 /* ════════════════ CASE STUDY ════════════════ */
 .gd-case {
