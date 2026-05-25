@@ -69,6 +69,20 @@ const CATEGORY_VARIANTS = {
     title_prefix: 'Utility Trenching',
     services_first: ['trenching', 'excavation', 'grading', 'concrete'],
   },
+  landscaper: {
+    match: ['landscap', 'tree service', 'gardening', 'lawn'],
+    h1_pre: 'Yards that ', h1_accent: 'show off.',
+    hero_sub: (city, st) => `Landscape grading, drainage, and site prep across ${city}${st ? ', ' + st : ''}. Plants get planted on graded dirt. We make sure the dirt is right.`,
+    title_prefix: 'Landscape Site Prep',
+    services_first: ['clearing', 'grading', 'hauling', 'excavation'],
+  },
+  trucking: {
+    match: ['trucking', 'hauling', 'junk removal', 'debris removal'],
+    h1_pre: 'Hauling that ', h1_accent: 'shows up on time.',
+    hero_sub: (city, st) => `Dirt, gravel, concrete, and debris hauled in and out across ${city}${st ? ', ' + st : ''}. Same-day pickup when we can. Honest weights, clean tickets.`,
+    title_prefix: 'Hauling & Trucking',
+    services_first: ['hauling', 'demolition', 'excavation', 'clearing'],
+  },
   general_construction: {
     match: ['general contract', 'construction company', 'builder'],
     h1_pre: 'Site work and ', h1_accent: 'general construction.',
@@ -92,6 +106,9 @@ function detectCategory(subtypes, fallbackDescription) {
     if (text.includes('pav') || text.includes('asphalt')) return 'paving';
     if (text.includes('concrete') || text.includes('foundation')) return 'concrete';
     if (text.includes('trench') || text.includes('utility')) return 'trenching';
+    // Trade-adjacent — natural overlap with excavation services.
+    if (text.includes('landscap') || text.includes('tree service') || text.includes('gardening') || text.includes('lawn')) return 'landscaper';
+    if (text.includes('trucking') || text.includes('hauling') || text.includes('junk removal') || text.includes('debris removal')) return 'trucking';
     if (text.includes('general contract') || text.includes('construction company') || text.includes('builder')) return 'general_construction';
     return null;
   }
