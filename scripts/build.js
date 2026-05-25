@@ -19,6 +19,16 @@ const DIST_DIR      = path.join(ROOT, 'dist');
 
 const SITE_URL = (process.env.SITE_URL ?? 'https://excavation.pages.dev').replace(/\/$/, '');
 
+// LIMIT=N caps the build to the first N businesses. Useful for fitting within
+// Cloudflare Pages' 20k-file-per-deploy ceiling. Slugs are still generated for
+// ALL businesses (so the URL writeback CSV stays complete), but only the first
+// N have their HTML rendered.
+//
+// Default is 1500: 1500 businesses × 13 pages = 19,500 files, just under
+// Cloudflare's 20k limit. Override locally with LIMIT=99999 to build all rows;
+// override on Cloudflare via the dashboard env var when deploying additional batches.
+const LIMIT = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : 1500;
+
 // Each business site is rendered as this set of pages.
 // `key` is a stable identifier used to highlight the active nav item;
 // `template` is relative to template/; `route` is the URL path under /<slug>/.
@@ -78,7 +88,11 @@ function main() {
   });
   console.log(`Loaded ${rows.length} businesses.`);
 
+  // Slugs are deterministic across the FULL dataset so the URL writeback CSV
+  // matches even when we only render the first LIMIT businesses.
   const slugMap = buildUniqueSlugs(rows);
+  const buildRows = LIMIT ? rows.slice(0, LIMIT) : rows;
+  if (LIMIT) console.log(`LIMIT=${LIMIT} — rendering first ${buildRows.length} of ${rows.length} businesses.`);
 
   // Fresh dist
   fs.rmSync(DIST_DIR, { recursive: true, force: true });
@@ -96,7 +110,7 @@ function main() {
   let pagesBuilt = 0;
   const sitemapEntries = [];
 
-  for (const row of rows) {
+  for (const row of buildRows) {
     const slug = slugMap.get(row);
     const data = normalize(row);
     data.slug = slug;
@@ -110,6 +124,8 @@ function main() {
         canonical: url,
         seo_title: titleFor(page, data),
         seo_description: descriptionFor(page, data),
+        // Use the Unsplash hero for every business on the home page (consistent brand).
+        // Inner pages use page-specific Unsplash so a paving page shows paving, etc.
         hero_image: HERO_IMAGES[page.key] ?? HERO_IMAGES.default,
         faqs: page.key === 'home' ? faqsFor(data) : [],
       };

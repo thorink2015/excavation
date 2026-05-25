@@ -7,7 +7,7 @@
 <% if (size === 'inline') { %>
   <div class="gw-hero-meta">
     <% if (it.rating_avg) { %>
-      <a class="gw-hero-meta-item gw-hero-meta-link" href="#" rel="nofollow" aria-label="Customer reviews on Google">
+      <a class="gw-hero-meta-item gw-hero-meta-link" href="<%= it.reviews_link || '#' %>" target="_blank" rel="nofollow" aria-label="Customer reviews on Google">
         <span class="gw-meta-icon gw-meta-icon-google" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.5 12.27a10.5 10.5 0 0 0-.17-1.88H12v3.57h5.92a5.07 5.07 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-7.77z" fill="#4285F4"/>
@@ -39,7 +39,7 @@
 <% } else { %>
   <div class="gw-trustbadges gw-trustbadges-<%= size %>">
     <% if (it.rating_avg) { %>
-      <a class="gw-tbadge gw-tbadge-google" href="#" aria-label="Customer reviews on Google" rel="nofollow">
+      <a class="gw-tbadge gw-tbadge-google" href="<%= it.reviews_link || '#' %>" target="_blank" aria-label="Customer reviews on Google" rel="nofollow">
         <span class="gw-tbadge-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M22.5 12.27a10.5 10.5 0 0 0-.17-1.88H12v3.57h5.92a5.07 5.07 0 0 1-2.2 3.32v2.76h3.56c2.08-1.92 3.28-4.74 3.28-7.77z" fill="#4285F4"/>

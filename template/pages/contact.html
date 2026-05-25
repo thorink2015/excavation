@@ -12,7 +12,7 @@
     <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>Contact</nav>
     <span class="gw-eyebrow">Get in touch</span>
     <h1>Send us your scope. We'll send back a number.</h1>
-    <p class="gw-page-sub">Quotes turned in 24 hours during the work week. Phone calls picked up between 7am and 5pm. Email replies same business day.</p>
+    <p class="gw-page-sub">Quotes turned in 24 hours during the work week. Phone calls picked up <% if (it.hours_table.length) { %>during business hours<% } else { %>between 7am and 5pm<% } %>. Email replies same business day.</p>
     <div style="margin-top:24px"><%~ include('../partials/trust-badges.html', { ...it, size: 'inline' }) %></div>
   </div>
 </section>
@@ -23,33 +23,76 @@
   <div class="gw-container">
     <div class="gw-feature-grid">
       <article class="gw-feature">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         <h3>Call us</h3>
-        <p><a href="tel:<%= it.phone_e164 %>" style="color:var(--gw-clay-deep);font-weight:700;font-size:1.125rem"><%= it.phone %></a><br><span style="font-size:.875rem">Mon–Fri, 7am to 5pm</span></p>
+        <p><a href="tel:<%= it.phone_e164 %>" style="color:var(--gw-clay-deep);font-weight:700;font-size:1.125rem"><%= it.phone %></a><br>
+          <% if (it.hours_table.length) { %>
+            <span style="font-size:.875rem"><%= it.hours_table[0].day %>–<%= it.hours_table[Math.min(4, it.hours_table.length - 1)].day %> business hours</span>
+          <% } else { %>
+            <span style="font-size:.875rem">Mon–Fri, 7am to 5pm</span>
+          <% } %>
+        </p>
       </article>
       <% if (it.email) { %>
       <article class="gw-feature">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         <h3>Email us</h3>
         <p><a href="mailto:<%= it.email %>" style="color:var(--gw-clay-deep);font-weight:600;word-break:break-all"><%= it.email %></a><br><span style="font-size:.875rem">Reply same business day</span></p>
       </article>
       <% } %>
       <% if (it.address_full) { %>
       <article class="gw-feature">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         <h3>Visit us</h3>
-        <p><%= it.address_full %><br><span style="font-size:.875rem">By appointment</span></p>
+        <p>
+          <% if (it.maps_link) { %>
+            <a href="<%= it.maps_link %>" target="_blank" rel="noopener" style="color:var(--gw-clay-deep);font-weight:600"><%= it.address_full %></a>
+          <% } else { %>
+            <%= it.address_full %>
+          <% } %>
+          <br>
+          <% if (it.maps_link) { %>
+            <a href="<%= it.maps_link %>" target="_blank" rel="noopener" style="font-size:.875rem;text-decoration:underline">View on Google Maps →</a>
+          <% } else { %>
+            <span style="font-size:.875rem">By appointment</span>
+          <% } %>
+        </p>
       </article>
       <% } %>
     </div>
   </div>
 </section>
 
-<% if (it.map_embed_url) { %>
+<% if (it.hours_table.length) { %>
 <section class="gw-section" style="padding-top:0">
   <div class="gw-container">
-    <div style="border:1px solid var(--gw-line);overflow:hidden;aspect-ratio:21/9">
-      <iframe src="<%= it.map_embed_url %>" width="100%" height="100%" style="border:0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of <%= it.business_name %>"></iframe>
+    <div class="gw-hours-card">
+      <h2 style="font-size:1.25rem;margin-bottom:20px">Business hours</h2>
+      <table class="gw-hours-table">
+        <tbody>
+          <% it.hours_table.forEach(function (h) { %>
+            <tr>
+              <th><%= h.day %></th>
+              <td><%= h.hours %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% if (it.reviews_link) { %>
+        <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--gw-line);font-size:.9375rem">
+          <a href="<%= it.reviews_link %>" target="_blank" rel="noopener" style="color:var(--gw-clay-deep);font-weight:600;text-decoration:underline">Read all <%= it.review_count %> Google reviews →</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<% if (it.map_embed_simple) { %>
+<section class="gw-section" style="padding-top:0">
+  <div class="gw-container">
+    <div style="border:1px solid var(--gw-line);overflow:hidden;aspect-ratio:21/9;border-radius:8px">
+      <iframe src="<%= it.map_embed_simple %>" width="100%" height="100%" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of <%= it.business_name %> in <%= it.city %>"></iframe>
     </div>
   </div>
 </section>

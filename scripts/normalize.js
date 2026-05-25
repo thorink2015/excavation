@@ -23,6 +23,87 @@ const SERVICE_LIBRARY = {
 
 const DEFAULT_SERVICES = ['excavation', 'trenching', 'grading', 'demolition', 'clearing', 'paving', 'concrete', 'hauling'];
 
+// Primary-category copy variants. Detected from CSV `subtypes` / `category` columns.
+// Each variant overrides H1, hero subhead, SEO title prefix, and the trust badge headline
+// so a paving-first business reads as paving and not as excavation.
+const CATEGORY_VARIANTS = {
+  excavation: {
+    match: ['excavat'],
+    h1_pre: "Site prep that doesn't ", h1_accent: 'slow your build.',
+    hero_sub: (city, st) => `Excavation, trenching, and site prep in ${city}${st ? ', ' + st : ''}. Quotes back in 24 hours. Sites left clean. No surprise line items.`,
+    title_prefix: 'Excavation',
+    services_first: ['excavation', 'trenching', 'grading', 'demolition'],
+  },
+  paving: {
+    match: ['pav', 'asphalt'],
+    h1_pre: 'Paving that ', h1_accent: 'lasts the warranty.',
+    hero_sub: (city, st) => `Asphalt and concrete paving for driveways, parking lots, and commercial pads in ${city}${st ? ', ' + st : ''}. Quotes back in 24 hours.`,
+    title_prefix: 'Paving',
+    services_first: ['paving', 'grading', 'concrete', 'excavation'],
+  },
+  demolition: {
+    match: ['demoli'],
+    h1_pre: 'Demolition done ', h1_accent: 'clean and on time.',
+    hero_sub: (city, st) => `Structure tear-outs, slab removal, pool demo across ${city}${st ? ', ' + st : ''}. Permits handled, debris hauled, site left clean.`,
+    title_prefix: 'Demolition',
+    services_first: ['demolition', 'hauling', 'excavation', 'clearing'],
+  },
+  septic: {
+    match: ['septic'],
+    h1_pre: 'Septic systems ', h1_accent: 'built to pass inspection.',
+    hero_sub: (city, st) => `Septic tank install, leach field repair, and rural site work in ${city}${st ? ', ' + st : ''}. Permits handled, inspection-ready hand-off.`,
+    title_prefix: 'Septic Systems',
+    services_first: ['septic', 'trenching', 'excavation', 'grading'],
+  },
+  concrete: {
+    match: ['concrete', 'foundation'],
+    h1_pre: 'Concrete and footings ', h1_accent: 'poured to spec.',
+    hero_sub: (city, st) => `Footings, slabs, flatwork, and foundation prep in ${city}${st ? ', ' + st : ''}. Formed, poured, finished — inspection-ready.`,
+    title_prefix: 'Concrete',
+    services_first: ['concrete', 'excavation', 'grading', 'demolition'],
+  },
+  trenching: {
+    match: ['trench', 'utility'],
+    h1_pre: 'Utility trenching ', h1_accent: 'done to spec.',
+    hero_sub: (city, st) => `Water, sewer, gas, and electric trenching in ${city}${st ? ', ' + st : ''}. Locates handled, spec-depth bedding, lines protected through backfill.`,
+    title_prefix: 'Utility Trenching',
+    services_first: ['trenching', 'excavation', 'grading', 'concrete'],
+  },
+  general_construction: {
+    match: ['general contract', 'construction company', 'builder'],
+    h1_pre: 'Site work and ', h1_accent: 'general construction.',
+    hero_sub: (city, st) => `Excavation, site prep, and general construction services in ${city}${st ? ', ' + st : ''}. One crew, one quote, one schedule.`,
+    title_prefix: 'Site Work & Construction',
+    services_first: ['excavation', 'concrete', 'grading', 'demolition'],
+  },
+};
+
+function detectCategory(subtypes, fallbackDescription) {
+  // The scraper lists subtypes in priority order — first is primary.
+  // ("Excavating contractor, Paving contractor" → excavation is primary.)
+  const subtypeList = String(subtypes || '').split(/[,;|]/).map((s) => s.trim().toLowerCase()).filter(Boolean);
+
+  function matchOne(text) {
+    if (!text) return null;
+    // Excavation first — this is the niche we lead with whenever it applies.
+    if (text.includes('excavat')) return 'excavation';
+    if (text.includes('septic'))  return 'septic';
+    if (text.includes('demoli'))  return 'demolition';
+    if (text.includes('pav') || text.includes('asphalt')) return 'paving';
+    if (text.includes('concrete') || text.includes('foundation')) return 'concrete';
+    if (text.includes('trench') || text.includes('utility')) return 'trenching';
+    if (text.includes('general contract') || text.includes('construction company') || text.includes('builder')) return 'general_construction';
+    return null;
+  }
+
+  for (const st of subtypeList) {
+    const cat = matchOne(st);
+    if (cat) return cat;
+  }
+  const cat = matchOne(String(fallbackDescription || '').toLowerCase());
+  return cat || 'excavation';
+}
+
 export function normalize(row) {
   const business_name = pick(row.business_name, row.name) || 'Local Excavation';
   // brand_name is the version used everywhere the period dot accent is appended
@@ -43,18 +124,34 @@ export function normalize(row) {
   const rating_avg   = num(row.rating_avg ?? row.rating);
   const review_count = num(row.review_count ?? row.reviews) ?? 0;
 
+  // Google Maps / Reviews — must be declared before address/map_embed_url which uses place_id.
+  const reviews_link_early = str(row.reviews_link)  || str(row.location_reviews_link);
+  const maps_link_early    = str(row.location_link);
+  const place_id_early     = str(row.place_id);
+
   // Services: prefer explicit `services` column, fall back to `subtypes` (scrape default)
   const rawServices = parseList(row.services ?? row.subtypes);
-  const services_for_grid = pickServicesForGrid(rawServices);
+
+  // Detect primary category (excavation / paving / demolition / septic / concrete / etc.)
+  // from the scraper's subtypes + free-form description.
+  const primaryCategory = detectCategory(rawServices.join(' '), description_long);
+  const variant = CATEGORY_VARIANTS[primaryCategory];
+
+  // Build services_for_grid honoring the variant's "what we lead with" order.
+  const services_for_grid = pickServicesForGrid(rawServices, variant.services_first);
 
   const address_full = composeAddress({ street: address_street, city, state: state_code || state, zip });
-  const map_embed_url = mapEmbed({ address_full, business_name, city, state: state_code || state });
+  // Map embed always uses the simple query URL (no API key required, more reliable in iframes).
+  const map_embed_url    = mapEmbed({ address_full, business_name, city, state: state_code || state });
+  const map_embed_simple = map_embed_url;
 
-  const hero_sub = description_short
-    || `Excavation, trenching, and site prep in ${city}${state_code ? ', ' + state_code : ''}. Quotes back in 24 hours. Sites left clean. No surprise line items.`;
+  const stCode = state_code || state || '';
+  const hero_h1_pre    = variant.h1_pre;
+  const hero_h1_accent = variant.h1_accent;
+  const hero_sub       = description_short || variant.hero_sub(city || 'your area', stCode);
 
-  const seo_title       = `Excavation ${city}${state_code ? ', ' + state_code : ''} | ${business_name}`.slice(0, 70);
-  const seo_description = `${business_name}: excavation, trenching, and site prep in ${city}${state_code ? ', ' + state_code : ''}. Quotes in 24 hours. Call ${phone}.`.slice(0, 160);
+  const seo_title       = `${variant.title_prefix} ${city}${stCode ? ', ' + stCode : ''} | ${business_name}`.slice(0, 70);
+  const seo_description = `${business_name}: ${variant.title_prefix.toLowerCase()} services in ${city}${stCode ? ', ' + stCode : ''}. Quotes in 24 hours. Call ${phone}.`.slice(0, 160);
 
   // Social URLs — optional; only render in template if present.
   const social = {
@@ -63,14 +160,46 @@ export function normalize(row) {
     linkedin:  str(row.company_linkedin)  || str(row.linkedin),
   };
 
+  // Google Maps + Reviews (re-aliased from the early declarations above for readability).
+  const reviews_link  = reviews_link_early;
+  const maps_link     = maps_link_early;
+  const place_id      = place_id_early;
+  const verified      = String(row.verified || '').toUpperCase() === 'TRUE';
+
+  // Email — only surface if the scraper validated it as deliverable.
+  const emailStatus   = String(row['email.emails_validator.status'] || '').toUpperCase();
+  const email_valid   = !emailStatus || emailStatus === 'RECEIVING' || emailStatus === 'VALID';
+
+  // Real per-business hero photo from Google (when present) — falls back to a generic
+  // Unsplash excavation photo at the template level.
+  const business_photo = str(row.photo);
+  const business_logo  = str(row.logo);
+  const street_view    = str(row.street_view);
+
+  // Owner / team
+  const owner_name     = str(row.full_name) || pick(row.first_name, row.last_name);
+  const first_name     = str(row.first_name);
+  const name_short     = str(row.name_for_emails) || business_name;
+
+  // Business meta (often sparse — render conditionally)
+  const founded_year   = str(row['company_insights.founded_year']);
+  const employees      = str(row['company_insights.employees']);
+  const domain         = str(row.domain);
+
+  // Working hours table for the Contact page and footer.
+  const hours_table    = parseHoursTable(row.working_hours, row.working_hours_csv_compatible);
+
   return {
     business_name,
     brand_name,
+    name_short,
     social,
     phone,
     phone_e164,
-    email,
+    email: email_valid ? email : '',
+    email_valid,
     website,
+    domain,
     address_street,
     city,
     state,
@@ -80,16 +209,60 @@ export function normalize(row) {
     description_long,
     description_short,
     hero_sub,
-    hero_image: DEFAULT_HERO,
+    // Per-business hero photo (real Google photo) wins; template falls back to DEFAULT_HERO if empty.
+    hero_image: business_photo || DEFAULT_HERO,
+    business_photo,
+    business_logo,
+    street_view,
+    primary_category: primaryCategory,
+    hero_h1_pre, hero_h1_accent,
     services: rawServices,
     services_for_grid,
     rating_avg,
     review_count,
+    reviews_link,
+    maps_link,
+    place_id,
+    verified,
+    owner_name,
+    first_name,
+    founded_year,
+    employees,
+    hours_table,
     map_embed_url,
+    map_embed_simple,
     seo_title,
     seo_description,
     raw: row,
   };
+}
+
+// Parse working_hours JSON into a uniform [{day, hours}] array for templates.
+function parseHoursTable(jsonStr, csvStr) {
+  if (jsonStr) {
+    try {
+      const obj = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
+      if (obj && typeof obj === 'object') {
+        const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        return days.filter((d) => obj[d]).map((d) => {
+          const v = obj[d];
+          const hours = Array.isArray(v) ? v.join(', ') : String(v);
+          return { day: d, hours: hours === 'Closed' ? 'Closed' : hours };
+        });
+      }
+    } catch {}
+  }
+  // Fallback: "Monday,7AM,4:30PM|Tuesday,..." format
+  const s = String(csvStr || jsonStr || '').trim();
+  if (!s) return [];
+  if (s.includes('|')) {
+    return s.split('|').map((seg) => {
+      const [day, open, close] = seg.split(',').map((x) => x.trim());
+      if (!day) return null;
+      return { day, hours: open && close ? `${open}–${close}` : (open || 'Closed') };
+    }).filter(Boolean);
+  }
+  return [];
 }
 
 // 5 common FAQs every excavation business can answer the same way.
@@ -233,27 +406,35 @@ function parseList(raw) {
   return s.split(/[;|,]/).map((x) => x.trim()).filter(Boolean);
 }
 
-function pickServicesForGrid(rawServices) {
-  // Map scrape strings ("Excavating contractor", "Paving contractor") to our service library.
-  const keys = new Set();
+function pickServicesForGrid(rawServices, leadOrder = []) {
+  // Detect which services the business actually offers based on scraper subtypes.
+  const detected = new Set();
   for (const s of rawServices) {
     const low = s.toLowerCase();
-    if (low.includes('excavat')) keys.add('excavation');
-    if (low.includes('trench'))  keys.add('trenching');
-    if (low.includes('grad'))    keys.add('grading');
-    if (low.includes('demo'))    keys.add('demolition');
-    if (low.includes('clear') || low.includes('brush') || low.includes('land')) keys.add('clearing');
-    if (low.includes('pav') || low.includes('asphalt')) keys.add('paving');
-    if (low.includes('concrete') || low.includes('foundation')) keys.add('concrete');
-    if (low.includes('septic')) keys.add('septic');
-    if (low.includes('haul') || low.includes('truck')) keys.add('hauling');
+    if (low.includes('excavat')) detected.add('excavation');
+    if (low.includes('trench'))  detected.add('trenching');
+    if (low.includes('grad'))    detected.add('grading');
+    if (low.includes('demo'))    detected.add('demolition');
+    if (low.includes('clear') || low.includes('brush') || low.includes('land')) detected.add('clearing');
+    if (low.includes('pav') || low.includes('asphalt')) detected.add('paving');
+    if (low.includes('concrete') || low.includes('foundation')) detected.add('concrete');
+    if (low.includes('septic')) detected.add('septic');
+    if (low.includes('haul') || low.includes('truck')) detected.add('hauling');
   }
-  // If we matched fewer than 4, top up with defaults so the grid stays full.
+  // Order: variant's lead order first (only if detected or default), then remaining detected, then DEFAULT_SERVICES fillers.
+  const ordered = [];
+  const seen = new Set();
+  for (const k of leadOrder) {
+    if (!seen.has(k) && SERVICE_LIBRARY[k]) { ordered.push(k); seen.add(k); }
+  }
+  for (const k of detected) {
+    if (!seen.has(k) && SERVICE_LIBRARY[k]) { ordered.push(k); seen.add(k); }
+  }
   for (const k of DEFAULT_SERVICES) {
-    if (keys.size >= 8) break;
-    keys.add(k);
+    if (ordered.length >= 8) break;
+    if (!seen.has(k) && SERVICE_LIBRARY[k]) { ordered.push(k); seen.add(k); }
   }
-  return Array.from(keys).slice(0, 8).map((k) => SERVICE_LIBRARY[k]);
+  return ordered.slice(0, 8).map((k) => SERVICE_LIBRARY[k]);
 }
 
 function mapEmbed({ address_full, business_name, city, state }) {
