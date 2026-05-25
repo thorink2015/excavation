@@ -314,6 +314,21 @@ img { max-width: 100%; height: auto; display: block; }
 .gw-equip-spec { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--gw-clay-deep); font-weight: 700; margin-bottom: 8px; }
 .gw-equip-body p { font-size: .9375rem; color: var(--gw-ink-2); }
 
+/* ===== Service area: full-width map ===== */
+.gw-map-section { padding: 0; background: var(--gw-bg); }
+.gw-map-full {
+  width: 100%;
+  height: clamp(320px, 50vh, 520px);
+  background: var(--gw-tint, #F0E4D6);
+  overflow: hidden;
+  border-top: 1px solid var(--gw-line);
+  border-bottom: 1px solid var(--gw-line);
+}
+.gw-map-full iframe { display: block; width: 100%; height: 100%; }
+.gw-area-grid { display: grid; grid-template-columns: 2fr 1fr; gap: clamp(40px, 6vw, 80px); }
+.gw-area-grid > .gw-prose { max-width: none; }
+@media (max-width: 860px) { .gw-area-grid { grid-template-columns: 1fr; } }
+
 /* ===== Skip-to-content link ===== */
 .gw-skip {
   position: absolute; top: -40px; left: 8px;

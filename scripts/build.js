@@ -38,22 +38,26 @@ const PAGES = [
   { key: 'terms',                   template: 'pages/terms.html',                      route: 'terms/',                    crumbs: [{ name: 'Terms of Service' }] },
 ];
 
-// Page-specific hero images (Unsplash IDs verified against original Groundwork HTML
-// and known-public photos). All resized via Unsplash params at template time.
+// Page-specific hero images. Only Unsplash IDs verified against the original
+// Groundwork HTML files are used — these are known-public construction photos
+// that reliably resolve. Pages where no matching photo exists fall back to a
+// text-only hero (controlled by the template, not this map).
+const EXCAVATOR_HERO  = 'https://images.unsplash.com/photo-1583024011792-b165975b52f5';
+const SITE_PREP_HERO  = 'https://images.unsplash.com/photo-1649807533255-bbc9c9fb7d77';
+const HEAVY_EQUIP_HERO = 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece';
+const PERSON_ON_SITE_HERO = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd';
+
 const HERO_IMAGES = {
-  'home':                       'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
-  'services':                   'https://images.unsplash.com/photo-1581094288338-2314dddb7ece',
-  'services/excavation':        'https://images.unsplash.com/photo-1649807533255-bbc9c9fb7d77',
-  'services/utility-trenching': 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc',
-  'services/grading':           'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
-  'services/demolition':        'https://images.unsplash.com/photo-1597176116047-876a32798fcc',
-  'equipment':                  'https://images.unsplash.com/photo-1605000797499-95a51c5269ae',
-  'industries':                 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece',
-  'service-area':               'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
-  'about':                      'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
-  'contact':                    'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
-  'privacy':                    'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
-  'terms':                      'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
+  'home':                       EXCAVATOR_HERO,
+  'services':                   HEAVY_EQUIP_HERO,
+  'services/excavation':        EXCAVATOR_HERO,
+  // services/utility-trenching, services/grading, services/demolition: text-only hero
+  'equipment':                  EXCAVATOR_HERO,
+  'industries':                 HEAVY_EQUIP_HERO,
+  'about':                      PERSON_ON_SITE_HERO,
+  // service-area, contact, privacy, terms: text-only hero (already)
+  // Fallback for OG/Twitter image and pages without a hero photo:
+  'default':                    EXCAVATOR_HERO,
 };
 
 function main() {
@@ -106,7 +110,7 @@ function main() {
         canonical: url,
         seo_title: titleFor(page, data),
         seo_description: descriptionFor(page, data),
-        hero_image: HERO_IMAGES[page.key] ?? HERO_IMAGES.home,
+        hero_image: HERO_IMAGES[page.key] ?? HERO_IMAGES.default,
         faqs: page.key === 'home' ? faqsFor(data) : [],
       };
       pageData.json_ld = buildJsonLd(pageData);
