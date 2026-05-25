@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= it.agency_name %> — Websites for excavation crews</title>
+  <meta name="description" content="<%= it.agency_name %> designs and ships landing pages, local SEO, and lead-gen funnels for excavation and site-prep companies across the US." />
+  <link rel="canonical" href="<%= it.site_url %>/" />
+  <meta name="robots" content="noindex" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="<%= it.agency_name %> — Websites for excavation crews" />
+  <meta property="og:description" content="Landing pages, local SEO, and lead-gen funnels built for excavation companies." />
+  <meta property="og:url" content="<%= it.site_url %>/" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="stylesheet" href="/assets/home.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "<%= it.agency_name %>",
+    "description": "Websites, local SEO, and lead generation for excavation contractors.",
+    "url": "<%= it.site_url %>/",
+    "areaServed": "United States",
+    "serviceType": ["Web Design", "Local SEO", "Lead Generation"]
+  }
+  </script>
+</head>
+<body>
+
+  <header class="gd-header">
+    <nav class="gd-container gd-nav" aria-label="Primary">
+      <a href="#" class="gd-logo">
+        <span class="gd-logo-mark">G</span>
+        <span><%= it.agency_name %></span>
+      </a>
+      <div class="gd-nav-links">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="gd-nav-cta gd-btn gd-btn-primary">Get in touch</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="gd-hero">
+    <div class="gd-container">
+      <span class="gd-hero-eyebrow">
+        <span class="gd-dot"></span>
+        Now booking Q2 builds
+      </span>
+      <h1>Websites for the people who <span class="gd-accent-text">dig.</span></h1>
+      <p class="gd-hero-sub">Landing pages, local SEO, and lead-gen funnels built for excavation and site-prep companies. Live in seven days. Real quotes in your inbox the next week.</p>
+      <div class="gd-hero-ctas">
+        <a href="#contact" class="gd-btn gd-btn-primary gd-btn-lg">See a free preview site</a>
+        <a href="#services" class="gd-btn gd-btn-secondary gd-btn-lg">How it works</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo band -->
+  <section class="gd-photo">
+    <div class="gd-container">
+      <div class="gd-photo-wrap">
+        <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=1600&q=80&auto=format&fit=crop" alt="Excavator working on a job site at dawn" loading="lazy" width="1600" height="900" />
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="gd-section">
+    <div class="gd-container">
+      <div class="gd-about-grid">
+        <div class="gd-about-text">
+          <span class="gd-eyebrow">About</span>
+          <h2>We only build for one trade.</h2>
+          <p>We're a small digital studio that ships websites for excavation and site-prep companies. No restaurants, no realtors, no fitness coaches. Just contractors who move dirt.</p>
+          <p>That focus is the whole point. We know what a real quote form needs to capture. We know which keywords convert in your county. We know what your customers want to see in the first three seconds.</p>
+          <p>Your site goes live in seven days. You get to focus on the work; we handle the rest.</p>
+          <div class="gd-about-stats">
+            <div>
+              <div class="gd-stat-num">7 days</div>
+              <div class="gd-stat-label">From kickoff to live site</div>
+            </div>
+            <div>
+              <div class="gd-stat-num">100%</div>
+              <div class="gd-stat-label">Excavation focused</div>
+            </div>
+          </div>
+        </div>
+        <div class="gd-about-photo">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80&auto=format&fit=crop" alt="Site superintendent reviewing plans at an excavation job site" loading="lazy" width="900" height="1125" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="gd-section">
+    <div class="gd-container">
+      <div class="gd-section-head">
+        <span class="gd-eyebrow">Services</span>
+        <h2>Built around how excavation work actually gets booked.</h2>
+        <p class="gd-section-lead">Three deliverables. No upsells, no bloat.</p>
+      </div>
+      <div class="gd-services">
+        <article class="gd-svc">
+          <div class="gd-svc-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="7" cy="6.5" r="0.5" fill="currentColor"/><circle cx="9" cy="6.5" r="0.5" fill="currentColor"/></svg>
+          </div>
+          <h3>Custom landing page</h3>
+          <p>One personalized page per location, built around your services, your phone number, and your service area. Loads in under a second.</p>
+        </article>
+        <article class="gd-svc">
+          <div class="gd-svc-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/></svg>
+          </div>
+          <h3>Local SEO</h3>
+          <p>Google Business profile setup, schema markup, and the on-page work that gets you showing up when a builder searches "excavator near me."</p>
+        </article>
+        <article class="gd-svc">
+          <div class="gd-svc-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+          </div>
+          <h3>Quote-form funnel</h3>
+          <p>A real lead-capture flow. Every form goes straight to your inbox or CRM. We'll wire it into your scheduling tool if you have one.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="gd-section">
+    <div class="gd-container">
+      <div class="gd-section-head">
+        <span class="gd-eyebrow">Process</span>
+        <h2>From kickoff to live in a week.</h2>
+      </div>
+      <div class="gd-process">
+        <div class="gd-step">
+          <div class="gd-step-num">01</div>
+          <h3>15-minute kickoff call.</h3>
+          <p>Tell us your service area, your services, and a couple of photos. We take it from there.</p>
+        </div>
+        <div class="gd-step">
+          <div class="gd-step-num">02</div>
+          <h3>Preview in 48 hours.</h3>
+          <p>We send a working preview URL. You click through, mark up what you want changed, send it back.</p>
+        </div>
+        <div class="gd-step">
+          <div class="gd-step-num">03</div>
+          <h3>Live on day seven.</h3>
+          <p>Domain wired, SSL on, Google Business connected. You start collecting quote requests.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="gd-section">
+    <div class="gd-container">
+      <div class="gd-contact">
+        <div>
+          <span class="gd-eyebrow" style="color:var(--gd-accent)">Get in touch</span>
+          <h2>Want a free preview site for your company?</h2>
+          <p class="gd-contact-lead">Drop your details. We'll send a working preview built around your business within 48 hours. No obligation, no card.</p>
+          <a href="mailto:<%= it.agency_email %>" class="gd-contact-email"><%= it.agency_email %></a>
+        </div>
+        <form class="gd-form" novalidate>
+          <input type="text"  name="name"    placeholder="Your name" required />
+          <input type="email" name="email"   placeholder="Email" required />
+          <input type="text"  name="company" placeholder="Company name" />
+          <textarea name="message" placeholder="Briefly — what services, what city, anything else we should know?"></textarea>
+          <button type="submit" class="gd-btn gd-btn-accent gd-btn-lg">Send it over</button>
+          <div class="gd-form-success">Got it. We'll be in touch within one business day.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="gd-footer">
+    <div class="gd-container gd-footer-row">
+      <div class="gd-footer-meta">&copy; <span class="gd-year">2026</span> <%= it.agency_name %>. All rights reserved.</div>
+      <div class="gd-footer-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/home.js" defer></script>
+</body>
+</html>

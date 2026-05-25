@@ -83,18 +83,13 @@ function main() {
   );
 
   // Minimal root index so the bare domain isn't a 404
-  fs.writeFileSync(
-    path.join(DIST_DIR, 'index.html'),
-    `<!doctype html><html lang="en"><head>` +
-      `<meta charset="utf-8">` +
-      `<meta name="viewport" content="width=device-width,initial-scale=1">` +
-      `<title>Excavation Network</title>` +
-      `<meta name="description" content="Regional directory of excavation and site-prep contractors.">` +
-      `<link rel="canonical" href="${SITE_URL}/">` +
-      `<meta name="robots" content="noindex">` +
-      `</head><body style="font-family:system-ui;padding:2rem;max-width:36rem">` +
-      `<h1>Excavation Network</h1><p>${built} regional businesses.</p></body></html>`,
-  );
+  const homeHtml = eta.render('./home.html', {
+    site_url: SITE_URL,
+    agency_name:  process.env.AGENCY_NAME  ?? 'Groundwork Digital',
+    agency_email: process.env.AGENCY_EMAIL ?? 'hello@groundwork.digital',
+    business_count: built,
+  });
+  fs.writeFileSync(path.join(DIST_DIR, 'index.html'), homeHtml);
 
   console.log(`Built ${built} pages -> ${path.relative(ROOT, DIST_DIR)}/`);
 }
