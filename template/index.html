@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= it.business_name %> — Excavation & Site Prep in <%= it.city %>, <%= it.state %></title>
+  <meta name="description" content="<%= it.description_short %>" />
+  <link rel="canonical" href="<%= it.canonical %>" />
+  <meta name="robots" content="noindex" />
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "<%= it.business_name %>",
+    "telephone": "<%= it.phone %>",
+    "email": "<%= it.email %>",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "<%= it.address_street %>",
+      "addressLocality": "<%= it.city %>",
+      "addressRegion": "<%= it.state %>",
+      "postalCode": "<%= it.zip %>"
+    },
+    "aggregateRating": <% if (it.rating_avg) { %>{
+      "@type": "AggregateRating",
+      "ratingValue": "<%= it.rating_avg %>",
+      "reviewCount": "<%= it.review_count %>"
+    }<% } else { %>null<% } %>,
+    "url": "<%= it.site_url %>"
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <h1><%= it.business_name %></h1>
+    <p class="tagline"><%= it.description_short %></p>
+    <a class="cta" href="tel:<%= it.phone_e164 %>">Call <%= it.phone %></a>
+  </header>
+
+  <section class="about">
+    <h2>About</h2>
+    <p><%= it.description_long %></p>
+    <% if (it.founded_year) { %><p>Serving <%= it.city %> since <%= it.founded_year %>.</p><% } %>
+  </section>
+
+  <section class="services">
+    <h2>Services</h2>
+    <ul>
+      <% it.services.forEach(function(s) { %>
+        <li><%= s %></li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <section class="reviews">
+    <h2>What Customers Say<% if (it.rating_avg) { %> · <%= it.rating_avg %>★ (<%= it.review_count %>)<% } %></h2>
+    <% it.reviews.forEach(function(r) { %>
+      <article>
+        <strong><%= r.author %></strong> · <%= r.rating %>★
+        <p><%= r.text %></p>
+      </article>
+    <% }) %>
+  </section>
+
+  <section class="contact">
+    <h2>Contact</h2>
+    <p><%= it.address_full %></p>
+    <% if (it.email) { %><p><a href="mailto:<%= it.email %>"><%= it.email %></a></p><% } %>
+    <p><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></p>
+    <% if (it.hours) { %><p>Hours: <%= it.hours %></p><% } %>
+  </section>
+
+  <% if (it.map_embed_url) { %>
+  <section class="map">
+    <iframe src="<%= it.map_embed_url %>" width="100%" height="320" loading="lazy"></iframe>
+  </section>
+  <% } %>
+
+  <footer>
+    <p>&copy; <%= it.business_name %></p>
+  </footer>
+</body>
+</html>
