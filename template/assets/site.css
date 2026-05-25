@@ -77,7 +77,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ===== Header ===== */
 .gw-header { position: sticky; top: 0; z-index: 50; background: rgba(247, 245, 240, 0.92); backdrop-filter: saturate(180%) blur(14px); -webkit-backdrop-filter: saturate(180%) blur(14px); border-bottom: 1px solid var(--gw-line); --gw-header-h: 64px; }
-.gw-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; min-height: var(--gw-header-h); }
+/* IMPORTANT: only set vertical padding here. Horizontal padding comes from
+   .gw-container — using `padding: 12px 0` shorthand would zero it out. */
+.gw-nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 12px; padding-bottom: 12px; min-height: var(--gw-header-h); }
 
 .gw-logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
 .gw-logo-mark { width: 32px; height: 32px; border-radius: 8px; background: var(--gw-clay); color: #fff; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
