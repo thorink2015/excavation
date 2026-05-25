@@ -3,82 +3,277 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><%= it.business_name %> — Excavation & Site Prep in <%= it.city %>, <%= it.state %></title>
-  <meta name="description" content="<%= it.description_short %>" />
+  <title><%= it.seo_title %></title>
+  <meta name="description" content="<%= it.seo_description %>" />
   <link rel="canonical" href="<%= it.canonical %>" />
   <meta name="robots" content="noindex" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="<%= it.seo_title %>" />
+  <meta property="og:description" content="<%= it.seo_description %>" />
+  <meta property="og:url" content="<%= it.site_url %>" />
+  <meta property="og:image" content="<%= it.hero_image %>" />
+
+  <!-- Performance: preconnect, preload hero -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="preload" as="image" href="<%= it.hero_image %>" fetchpriority="high" />
+
   <link rel="stylesheet" href="/assets/site.css" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": "<%= it.business_name %>",
-    "telephone": "<%= it.phone %>",
-    "email": "<%= it.email %>",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "<%= it.address_street %>",
-      "addressLocality": "<%= it.city %>",
-      "addressRegion": "<%= it.state %>",
-      "postalCode": "<%= it.zip %>"
-    },
-    "aggregateRating": <% if (it.rating_avg) { %>{
-      "@type": "AggregateRating",
-      "ratingValue": "<%= it.rating_avg %>",
-      "reviewCount": "<%= it.review_count %>"
-    }<% } else { %>null<% } %>,
-    "url": "<%= it.site_url %>"
-  }
-  </script>
+
+  <!-- JSON-LD: LocalBusiness -->
+  <script type="application/ld+json"><%~ it.json_ld %></script>
 </head>
 <body>
-  <header>
-    <h1><%= it.business_name %></h1>
-    <p class="tagline"><%= it.description_short %></p>
-    <a class="cta" href="tel:<%= it.phone_e164 %>">Call <%= it.phone %></a>
+
+  <header class="gw-header">
+    <nav class="gw-container gw-nav" aria-label="Primary">
+      <a href="#" class="gw-logo"><%= it.business_name %><span class="gw-dot">.</span></a>
+      <div class="gw-nav-links" id="gw-nav-links">
+        <a href="#services">Services</a>
+        <a href="#why-us">Why Us</a>
+        <a href="#how">How We Work</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a href="tel:<%= it.phone_e164 %>" class="gw-btn gw-btn-primary gw-nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <span><%= it.phone %></span>
+      </a>
+      <button class="gw-nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="gw-nav-links">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </nav>
   </header>
 
-  <section class="about">
-    <h2>About</h2>
-    <p><%= it.description_long %></p>
-    <% if (it.founded_year) { %><p>Serving <%= it.city %> since <%= it.founded_year %>.</p><% } %>
+  <!-- Hero -->
+  <section class="gw-hero">
+    <div class="gw-container gw-hero-grid">
+      <div class="gw-hero-text">
+        <span class="gw-eyebrow"><%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> Excavation</span>
+        <h1>Site prep that doesn't <span class="gw-clay-text">slow your build.</span></h1>
+        <p class="gw-hero-sub"><%= it.hero_sub %></p>
+        <div class="gw-hero-ctas">
+          <a href="#contact" class="gw-btn gw-btn-primary gw-btn-arrow">
+            Get a Free Quote
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="tel:<%= it.phone_e164 %>" class="gw-btn gw-btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <%= it.phone %>
+          </a>
+        </div>
+        <div class="gw-hero-meta">
+          <div class="gw-hero-meta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span><strong>24 hour</strong> quote turnaround</span>
+          </div>
+          <div class="gw-hero-meta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span><strong>Licensed & insured</strong></span>
+          </div>
+          <div class="gw-hero-meta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Based in <strong><%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="gw-hero-image">
+        <span class="gw-hero-tag">On Site Now</span>
+        <img src="<%= it.hero_image %>" alt="Excavator on a <%= it.city %> job site" width="1200" height="960" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
   </section>
 
-  <section class="services">
-    <h2>Services</h2>
-    <ul>
-      <% it.services.forEach(function(s) { %>
-        <li><%= s %></li>
-      <% }) %>
-    </ul>
+  <!-- Trust strip -->
+  <section class="gw-trust">
+    <div class="gw-container gw-trust-grid">
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div><div class="gw-trust-item-label">Quote in</div><div class="gw-trust-item-value">24 Hours</div></div>
+      </div>
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M20 7h-3V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM9 4h6v3H9V4z"/></svg>
+        <div><div class="gw-trust-item-label">Owner</div><div class="gw-trust-item-value">Operated</div></div>
+      </div>
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <div><div class="gw-trust-item-label">Fully</div><div class="gw-trust-item-value">Licensed & Insured</div></div>
+      </div>
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div><div class="gw-trust-item-label">Serving</div><div class="gw-trust-item-value"><%= it.city %></div></div>
+      </div>
+    </div>
   </section>
 
-  <section class="reviews">
-    <h2>What Customers Say<% if (it.rating_avg) { %> · <%= it.rating_avg %>★ (<%= it.review_count %>)<% } %></h2>
-    <% it.reviews.forEach(function(r) { %>
-      <article>
-        <strong><%= r.author %></strong> · <%= r.rating %>★
-        <p><%= r.text %></p>
-      </article>
-    <% }) %>
+  <!-- Services -->
+  <section id="services" class="gw-section">
+    <div class="gw-container">
+      <span class="gw-eyebrow">What we do</span>
+      <h2>Site prep, dialed in.</h2>
+      <p class="gw-section-lead">From foundation digs to utility trenching, we handle the dirty work so your build stays on schedule.</p>
+      <div class="gw-svc-grid">
+        <% it.services_for_grid.forEach(function (svc) { %>
+          <article class="gw-svc-card">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><%~ svc.icon %></svg>
+            <h3><%= svc.name %></h3>
+            <p><%= svc.blurb %></p>
+          </article>
+        <% }) %>
+      </div>
+    </div>
   </section>
 
-  <section class="contact">
-    <h2>Contact</h2>
-    <p><%= it.address_full %></p>
-    <% if (it.email) { %><p><a href="mailto:<%= it.email %>"><%= it.email %></a></p><% } %>
-    <p><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></p>
-    <% if (it.hours) { %><p>Hours: <%= it.hours %></p><% } %>
+  <!-- Why us -->
+  <section id="why-us" class="gw-section gw-why">
+    <div class="gw-container">
+      <span class="gw-eyebrow">Why builders call us back</span>
+      <h2>No drama. No surprise bills.</h2>
+      <div class="gw-why-grid">
+        <div class="gw-why-item">
+          <h3>Show up on time.</h3>
+          <p>Crews dispatched on the day promised. If something shifts, you hear it from us before lunch, not the day of.</p>
+        </div>
+        <div class="gw-why-item">
+          <h3>Clean hand-off.</h3>
+          <p>Site left graded, swept, and inspection-ready. The next trade can roll in without a punch list.</p>
+        </div>
+        <div class="gw-why-item">
+          <h3>No surprise line items.</h3>
+          <p>Quotes spell out the scope. If conditions change underground, we call before we cut a new ticket.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <% if (it.map_embed_url) { %>
-  <section class="map">
-    <iframe src="<%= it.map_embed_url %>" width="100%" height="320" loading="lazy"></iframe>
+  <!-- Reviews / social proof -->
+  <% if (it.rating_avg) { %>
+  <section class="gw-section">
+    <div class="gw-container">
+      <div class="gw-reviews-card">
+        <div>
+          <div class="gw-rating-big"><%= it.rating_avg.toFixed(1) %></div>
+        </div>
+        <div>
+          <div class="gw-stars">
+            <% for (var i = 0; i < 5; i++) { %>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <% } %>
+          </div>
+          <p><strong>Rated <%= it.rating_avg.toFixed(1) %>/5</strong> across <%= it.review_count %> customer reviews on Google.</p>
+          <p class="gw-rating-sub">Honest scope, on-time crews, clean job sites.</p>
+        </div>
+        <div>
+          <a href="#contact" class="gw-btn gw-btn-primary">Get a Quote</a>
+        </div>
+      </div>
+    </div>
   </section>
   <% } %>
 
-  <footer>
-    <p>&copy; <%= it.business_name %></p>
+  <!-- How we work -->
+  <section id="how" class="gw-section">
+    <div class="gw-container">
+      <span class="gw-eyebrow">How we work</span>
+      <h2>Quote to dig in 3 steps.</h2>
+      <p class="gw-section-lead">No long forms, no chasing a callback. Send the scope, get a number, and we're on site.</p>
+      <div class="gw-steps">
+        <div class="gw-step">
+          <h3>Send the scope.</h3>
+          <p>Drop plans, an address, or just a description. We'll come walk it if it's complex.</p>
+        </div>
+        <div class="gw-step">
+          <h3>Quote in 24 hours.</h3>
+          <p>Itemized number back the next business day. Honest about what we see, transparent on the unknowns.</p>
+        </div>
+        <div class="gw-step">
+          <h3>Dig clean, hand off ready.</h3>
+          <p>Crew on the date promised. Site left graded and swept for the next trade.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA + form -->
+  <section id="contact" class="gw-section gw-cta">
+    <div class="gw-container gw-cta-grid">
+      <div>
+        <span class="gw-eyebrow" style="color:var(--gw-clay)">Ready to dig?</span>
+        <h2>Get a quote in 24 hours.</h2>
+        <p class="gw-cta-lead">Send the scope. We'll walk the site if needed, and put a number in your inbox the next business day.</p>
+        <div>
+          <div style="font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:#8b847b;">Or call directly</div>
+          <a href="tel:<%= it.phone_e164 %>" class="gw-cta-phone"><%= it.phone %></a>
+        </div>
+        <% if (it.email) { %>
+          <div style="margin-top:24px;color:#d4ccc0;font-size:14px;">
+            <a href="mailto:<%= it.email %>" style="text-decoration:underline;"><%= it.email %></a>
+          </div>
+        <% } %>
+      </div>
+      <form class="gw-form" novalidate>
+        <h3>Tell us about your project.</h3>
+        <div class="gw-form-row">
+          <input type="text" name="first_name" placeholder="First name" required />
+          <input type="text" name="last_name"  placeholder="Last name" required />
+        </div>
+        <div class="gw-form-row">
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="tel"   name="phone" placeholder="Phone" />
+        </div>
+        <div class="gw-form-row single">
+          <select name="project_type">
+            <option value="">Project type…</option>
+            <option>New Build</option>
+            <option>Pool / Spa</option>
+            <option>ADU</option>
+            <option>Utility Trenching</option>
+            <option>Demolition</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="gw-form-row single">
+          <textarea name="notes" placeholder="Scope, address, target start date…"></textarea>
+        </div>
+        <button type="submit" class="gw-btn gw-btn-primary" style="width:100%">Get Free Quote</button>
+        <div class="gw-form-success">Got it. We'll be in touch within 24 hours.</div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="gw-footer">
+    <div class="gw-container">
+      <div class="gw-footer-grid">
+        <div>
+          <div class="gw-logo" style="color:#fff;margin-bottom:12px"><%= it.business_name %><span class="gw-dot">.</span></div>
+          <p style="max-width:42ch"><%= it.business_name %> is an excavation and site-prep crew serving <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> and the surrounding area.</p>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+            <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+            <% if (it.address_full) { %><li><%= it.address_full %></li><% } %>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <% it.services_for_grid.slice(0, 6).forEach(function (svc) { %>
+              <li><%= svc.name %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <div class="gw-footer-bottom">
+        &copy; <span class="gw-year">2026</span> <%= it.business_name %>. All rights reserved.
+      </div>
+    </div>
   </footer>
+
+  <script src="/assets/site.js" defer></script>
 </body>
 </html>
