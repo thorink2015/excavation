@@ -15,7 +15,7 @@
   <div class="gw-container gw-hero-grid">
     <div class="gw-hero-text">
       <span class="gw-eyebrow"><%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> Excavation</span>
-      <h1>Site prep that doesn't <span class="gw-clay-text">slow your build.</span></h1>
+      <h1><%= it.hero_h1_pre %><span class="gw-clay-text"><%= it.hero_h1_accent %></span></h1>
       <p class="gw-hero-sub"><%= it.hero_sub %></p>
       <div class="gw-hero-ctas">
         <a href="/<%= it.slug %>/contact/" class="gw-btn gw-btn-primary gw-btn-arrow">
