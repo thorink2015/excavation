@@ -16,7 +16,7 @@ const ASSETS_DIR    = path.join(TEMPLATE_DIR, 'assets');
 const TEMPLATE_FILE = path.join(TEMPLATE_DIR, 'index.html');
 const DIST_DIR      = path.join(ROOT, 'dist');
 
-const SITE_URL = (process.env.SITE_URL ?? 'https://excavation-leads.pages.dev').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL ?? 'https://excavation.pages.dev').replace(/\/$/, '');
 
 function main() {
   ensure(CSV_PATH,      'Missing data/businesses.csv. Commit your scraped CSV at that path.');

@@ -13,7 +13,7 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const IN   = path.join(ROOT, 'data', 'businesses.csv');
 const OUT  = path.join(ROOT, 'data', 'businesses.with-urls.csv');
 
-const SITE_URL = (process.env.SITE_URL ?? 'https://excavation-leads.pages.dev').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL ?? 'https://excavation.pages.dev').replace(/\/$/, '');
 
 if (!fs.existsSync(IN)) {
   console.error('ERROR: data/businesses.csv not found.');

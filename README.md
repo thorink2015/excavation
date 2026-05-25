@@ -36,7 +36,7 @@ npm run all            # both
 Set the deploy URL with `SITE_URL`:
 
 ```bash
-SITE_URL=https://excavation-leads.pages.dev npm run all
+SITE_URL=https://excavation.pages.dev npm run all
 ```
 
 ## Deploy (Cloudflare Pages)
