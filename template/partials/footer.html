@@ -2,10 +2,13 @@
   <div class="gw-container">
     <div class="gw-footer-grid-full">
       <div class="gw-footer-brand">
-        <div class="gw-logo" style="color:#fff;margin-bottom:12px;font-size:1.5rem">
-          <span class="gw-logo-text"><%= it.brand_name %><span class="gw-logo-dot">.</span></span>
+        <div class="gw-footer-logo">
+          <span class="gw-logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-4 4 3 5-6 5 6"/><path d="M3 21h18"/></svg>
+          </span>
+          <span class="gw-footer-logo-text"><%= it.brand_name %><span class="gw-logo-dot">.</span></span>
         </div>
-        <p style="max-width:38ch"><%= it.business_name %> is an excavation and site-prep crew serving <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> and the surrounding area. Licensed, insured, owner-operated.</p>
+        <p style="max-width:38ch;margin-top:14px"><%= it.business_name %> is an excavation and site-prep crew serving <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> and the surrounding area. Licensed, insured, owner-operated.</p>
       </div>
       <div>
         <h4>Services</h4>
