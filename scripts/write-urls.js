@@ -10,6 +10,7 @@ import path from 'node:path';
 import { parse } from 'csv-parse/sync';
 import { stringify } from 'csv-stringify/sync';
 import { buildUniqueSlugs } from './slugify.js';
+import { shouldDeploy } from './normalize.js';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const IN   = path.join(ROOT, 'data', 'businesses.csv');
@@ -35,23 +36,32 @@ const rows = parse(fs.readFileSync(IN, 'utf8'), {
 
 const slugMap = buildUniqueSlugs(rows);
 
-const enriched = rows.map((row, i) => ({
-  ...row,
-  slug: slugMap.get(row),
-  url: `${SITE_URL}/${slugMap.get(row)}/`,
-  deployed: LIMIT ? (i < LIMIT ? 'true' : 'false') : 'true',
-}));
+// Mirror build.js: eligible = passes the category blocklist; deployed = within
+// LIMIT of the eligible list. Rows that are NOT eligible never deploy regardless
+// of position. This way the campaign-batch.csv is always 1500 real prospects.
+let deployedCount = 0;
+const enriched = rows.map((row) => {
+  const eligible = shouldDeploy(row);
+  const isDeployed = eligible && (LIMIT == null || deployedCount < LIMIT);
+  if (isDeployed) deployedCount++;
+  return {
+    ...row,
+    slug: slugMap.get(row),
+    url: `${SITE_URL}/${slugMap.get(row)}/`,
+    eligible: eligible ? 'true' : 'false',
+    deployed: isDeployed ? 'true' : 'false',
+  };
+});
 
 fs.writeFileSync(OUT, stringify(enriched, { header: true }));
 
-// Also write a focused "ready-to-cold-email" subset containing only deployed rows.
 const live = enriched.filter((r) => r.deployed === 'true');
+const eligibleFuture = enriched.filter((r) => r.eligible === 'true' && r.deployed === 'false').length;
+const blocked = enriched.filter((r) => r.eligible === 'false').length;
 fs.writeFileSync(OUT_CAMPAIGN, stringify(live, { header: true }));
 
-const deployedCount = live.length;
 console.log(`Wrote ${enriched.length} rows -> ${path.relative(ROOT, OUT)}`);
-console.log(`  ${deployedCount} live (deployed to ${SITE_URL})`);
-if (LIMIT && rows.length > LIMIT) {
-  console.log(`  ${rows.length - LIMIT} URLs generated but NOT live yet (deployed=false)`);
-}
+console.log(`  ${live.length} live (deployed to ${SITE_URL})`);
+console.log(`  ${eligibleFuture} eligible but not yet deployed (LIMIT cap)`);
+console.log(`  ${blocked} blocked by category filter (not excavation-relevant)`);
 console.log(`Wrote ${live.length} ready-to-send rows -> ${path.relative(ROOT, OUT_CAMPAIGN)}`);

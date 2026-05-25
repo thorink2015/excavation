@@ -92,6 +92,91 @@ const CATEGORY_VARIANTS = {
   },
 };
 
+// Subtypes that have no plausible reason to be sold an excavation landing page.
+// Matched against the first subtype in the CSV's `subtypes` column (case-insensitive,
+// trimmed). Anything matching is excluded from the deploy and marked deployed=false
+// in the URL writeback CSV.
+const SUBTYPE_BLOCKLIST = new Set([
+  // Trades unrelated to dirt work
+  'roofing contractor',
+  'electrician',
+  'plumber',
+  'water damage restoration service',
+  'remodeler',
+  'bathroom remodeler',
+  'kitchen remodeler',
+  'interior designer',
+  'interior construction contractor',
+  'painter',
+  'handyman/handywoman/handyperson',
+  'flooring contractor',
+  'hardwood floor refinishing service',
+  'siding contractor',
+  'dry wall contractor',
+  'hvac contractor',
+  'sheet metal contractor',
+  'fence contractor',
+  'waterproofing service',
+  'solar energy company',
+  // Professional services / non-trades
+  'real estate developer',
+  'real estate agent',
+  'property management company',
+  'engineer',
+  'civil engineer',
+  'structural engineer',
+  'engineering consultant',
+  'civil engineering company',
+  'architecture firm',
+  'landscape architect',
+  'landscape designer',
+  'environmental consultant',
+  'bookkeeping service',
+  'security guard service',
+  'corporate office',
+  // Suppliers / stores (not contractors)
+  'garden center',
+  'landscaping supply store',
+  'hardware store',
+  'electronics store',
+  'grocery store',
+  'thrift store',
+  'building materials supplier',
+  'concrete product supplier',
+  'construction equipment supplier',
+  'ready mix concrete supplier',
+  'equipment rental agency',
+  // Pure trees / forestry (not landscape contractors)
+  'tree service',
+  'forestry service',
+  'logging contractor',
+  // Random scraper noise — clearly not contractors
+  'hotel',
+  'gym',
+  'restaurant',
+  'general hospital',
+  'medical clinic',
+  'radiologist',
+  'university',
+  'park',
+  'playground',
+  'historical landmark',
+  'mover',
+  'moving and storage service',
+  'telecommunications service provider',
+  'truss manufacturer',
+  'home cinema installation',
+  'bridge',
+  'garbage collection service',
+]);
+
+export function shouldDeploy(row) {
+  const subtypes = String(row.subtypes || row.category || '').trim();
+  if (!subtypes) return false; // no category at all → skip
+  const first = subtypes.split(',')[0].trim().toLowerCase();
+  return !SUBTYPE_BLOCKLIST.has(first);
+}
+
 function detectCategory(subtypes, fallbackDescription) {
   // The scraper lists subtypes in priority order — first is primary.
   // ("Excavating contractor, Paving contractor" → excavation is primary.)

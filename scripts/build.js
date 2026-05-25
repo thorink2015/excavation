@@ -7,7 +7,7 @@ import path from 'node:path';
 import { parse } from 'csv-parse/sync';
 import { Eta } from 'eta';
 import { buildUniqueSlugs } from './slugify.js';
-import { normalize, buildJsonLd, buildBreadcrumbLd, buildServiceLd, buildFaqLd, faqsFor } from './normalize.js';
+import { normalize, buildJsonLd, buildBreadcrumbLd, buildServiceLd, buildFaqLd, faqsFor, shouldDeploy } from './normalize.js';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const CSV_PATH      = path.join(ROOT, 'data', 'businesses.csv');
@@ -89,10 +89,16 @@ function main() {
   console.log(`Loaded ${rows.length} businesses.`);
 
   // Slugs are deterministic across the FULL dataset so the URL writeback CSV
-  // matches even when we only render the first LIMIT businesses.
+  // matches even when we only render the first LIMIT eligible businesses.
   const slugMap = buildUniqueSlugs(rows);
-  const buildRows = LIMIT ? rows.slice(0, LIMIT) : rows;
-  if (LIMIT) console.log(`LIMIT=${LIMIT} — rendering first ${buildRows.length} of ${rows.length} businesses.`);
+
+  // Apply the category blocklist BEFORE LIMIT — that way LIMIT counts only real
+  // excavation prospects. Anything filtered out is excluded from the deploy
+  // entirely (and write-urls.js marks them deployed=false).
+  const eligibleRows = rows.filter(shouldDeploy);
+  const buildRows = LIMIT ? eligibleRows.slice(0, LIMIT) : eligibleRows;
+  console.log(`Eligible (after category blocklist): ${eligibleRows.length} of ${rows.length}`);
+  if (LIMIT) console.log(`LIMIT=${LIMIT} — rendering first ${buildRows.length} of ${eligibleRows.length} eligible businesses.`);
 
   // Fresh dist
   fs.rmSync(DIST_DIR, { recursive: true, force: true });
