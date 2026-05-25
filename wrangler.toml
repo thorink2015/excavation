@@ -1,0 +1,10 @@
+name = "excavation"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "./dist"
+
+# Belt-and-suspenders: if Cloudflare's new build pipeline invokes
+# `npx wrangler deploy` (Workers mode) instead of the built-in Pages
+# deploy, this [assets] block tells wrangler exactly what to upload
+# as static assets. Either path now deploys dist/ correctly.
+[assets]
+directory = "./dist"
