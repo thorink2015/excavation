@@ -16,12 +16,21 @@ export function slugify(text) {
 // Build a Map<row, slug> with collision-free slugs for an entire dataset.
 // Slug = slugify(name)-slugify(city); if multiple rows collapse to the same slug
 // (e.g. two "ACME Excavation" in "Austin"), suffix with -2, -3, ...
-export function buildUniqueSlugs(rows, { nameKey = 'business_name', cityKey = 'city' } = {}) {
+// nameKeys are tried in order; the first non-empty value wins.
+export function buildUniqueSlugs(rows, {
+  nameKeys = ['business_name', 'name'],
+  cityKey = 'city',
+} = {}) {
   const slugMap = new Map();
   const counts = new Map();
 
   for (const row of rows) {
-    const namePart = slugify(row[nameKey] ?? 'business');
+    let nameValue = '';
+    for (const k of nameKeys) {
+      const v = (row[k] ?? '').toString().trim();
+      if (v) { nameValue = v; break; }
+    }
+    const namePart = slugify(nameValue || 'business');
     const cityPart = slugify(row[cityKey] ?? '');
     const base = cityPart ? `${namePart}-${cityPart}` : namePart;
 

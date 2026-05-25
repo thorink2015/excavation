@@ -7,7 +7,7 @@ import path from 'node:path';
 import { parse } from 'csv-parse/sync';
 import { Eta } from 'eta';
 import { buildUniqueSlugs } from './slugify.js';
-import { normalize } from './normalize.js';
+import { normalize, buildJsonLd } from './normalize.js';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const CSV_PATH      = path.join(ROOT, 'data', 'businesses.csv');
@@ -58,6 +58,7 @@ function main() {
     data.slug = slug;
     data.site_url = `${SITE_URL}/${slug}/`;
     data.canonical = data.site_url;
+    data.json_ld = buildJsonLd(data);
 
     const html = eta.render('./index.html', data);
     const outDir = path.join(DIST_DIR, slug);
