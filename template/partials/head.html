@@ -1,0 +1,29 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title><%= it.seo_title %></title>
+<meta name="description" content="<%= it.seo_description %>" />
+<link rel="canonical" href="<%= it.canonical %>" />
+<meta name="robots" content="noindex" />
+<meta name="theme-color" content="#1C1A17" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="<%= it.seo_title %>" />
+<meta property="og:description" content="<%= it.seo_description %>" />
+<meta property="og:url" content="<%= it.canonical %>" />
+<meta property="og:image" content="<%= it.hero_image %>" />
+<meta property="og:site_name" content="<%= it.business_name %>" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="<%= it.seo_title %>" />
+<meta name="twitter:description" content="<%= it.seo_description %>" />
+<meta name="twitter:image" content="<%= it.hero_image %>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="preconnect" href="https://images.unsplash.com" />
+<link rel="stylesheet" href="/assets/site.css" />
+
+<script type="application/ld+json"><%~ it.json_ld %></script>
+<% if (it.breadcrumb_ld) { %><script type="application/ld+json"><%~ it.breadcrumb_ld %></script><% } %>
+<% if (it.service_ld) { %><script type="application/ld+json"><%~ it.service_ld %></script><% } %>
+<% if (it.faq_ld) { %><script type="application/ld+json"><%~ it.faq_ld %></script><% } %>

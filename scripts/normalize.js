@@ -25,6 +25,10 @@ const DEFAULT_SERVICES = ['excavation', 'trenching', 'grading', 'demolition', 'c
 
 export function normalize(row) {
   const business_name = pick(row.business_name, row.name) || 'Local Excavation';
+  // brand_name is the version used everywhere the period dot accent is appended
+  // (logo, footer brand). Strips a trailing "." so "Moore's Gravel Inc." doesn't
+  // render as "Moore's Gravel Inc.." when the dot accent fires.
+  const brand_name = business_name.replace(/\.+$/, '');
   const city          = str(row.city);
   const state         = str(row.state_code) || str(row.state);
   const state_code    = str(row.state_code) || twoLetterState(row.state);
@@ -52,8 +56,17 @@ export function normalize(row) {
   const seo_title       = `Excavation ${city}${state_code ? ', ' + state_code : ''} | ${business_name}`.slice(0, 70);
   const seo_description = `${business_name}: excavation, trenching, and site prep in ${city}${state_code ? ', ' + state_code : ''}. Quotes in 24 hours. Call ${phone}.`.slice(0, 160);
 
+  // Social URLs — optional; only render in template if present.
+  const social = {
+    facebook:  str(row.company_facebook)  || str(row.facebook),
+    instagram: str(row.company_instagram) || str(row.instagram),
+    linkedin:  str(row.company_linkedin)  || str(row.linkedin),
+  };
+
   return {
     business_name,
+    brand_name,
+    social,
     phone,
     phone_e164,
     email,
@@ -77,6 +90,82 @@ export function normalize(row) {
     seo_description,
     raw: row,
   };
+}
+
+// 5 common FAQs every excavation business can answer the same way.
+// Used on the home page and as FAQPage schema for SEO.
+export function faqsFor(data) {
+  const phone = data.phone || 'us';
+  const loc = data.city ? (data.state_code ? `${data.city}, ${data.state_code}` : data.city) : 'the local area';
+  return [
+    {
+      q: 'How fast can you turn a quote?',
+      a: 'For most projects, 24 business hours from when we get the scope. Bigger jobs that need a site walk take a day or two longer.',
+    },
+    {
+      q: 'Do you handle the permits?',
+      a: 'For demolition, septic, and most utility trenching, yes. For new-build excavation tied to a GC, the GC usually pulls the permit and we work under it. We will tell you which on the first call.',
+    },
+    {
+      q: `Are you licensed and insured in ${loc}?`,
+      a: 'Yes. Full general liability and workers comp. Certificates of insurance available before we break ground. License documentation on request.',
+    },
+    {
+      q: 'How do I know my quote is honest?',
+      a: 'Itemized line items, no vague allowances. If conditions change underground (rock, water, unmarked utilities), we stop and call before we run a change order. No quiet surprises on the final bill.',
+    },
+    {
+      q: `Do you work outside of ${data.city || 'the metro'}?`,
+      a: `Most of our work is within an hour of home base. We will travel further for the right project — call ${phone} and we will tell you straight if your job is in range.`,
+    },
+  ];
+}
+
+export function buildBreadcrumbLd(siteUrl, slug, crumbs) {
+  const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/${slug}/` }];
+  crumbs.forEach((c, i) => {
+    const entry = { '@type': 'ListItem', position: i + 2, name: c.name };
+    if (c.path) entry.item = `${siteUrl}/${slug}/${c.path}`;
+    items.push(entry);
+  });
+  return JSON.stringify({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: items });
+}
+
+export function buildServiceLd(data, pageKey) {
+  const serviceName = ({
+    'services/excavation':        'Excavation',
+    'services/utility-trenching': 'Utility Trenching',
+    'services/grading':           'Grading',
+    'services/demolition':        'Demolition',
+  })[pageKey] || 'Excavation Services';
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `${serviceName} — ${data.business_name}`,
+    serviceType: serviceName,
+    provider: {
+      '@type': 'GeneralContractor',
+      name: data.business_name,
+      telephone: data.phone,
+      url: data.site_url,
+    },
+    areaServed: data.city ? { '@type': 'City', name: data.city } : undefined,
+    description: data.seo_description,
+    url: data.site_url,
+  });
+}
+
+export function buildFaqLd(faqs) {
+  if (!faqs || !faqs.length) return null;
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
 }
 
 export function buildJsonLd(data) {

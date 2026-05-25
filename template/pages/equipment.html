@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../partials/header.html', it) %>
+
+<main id="main">
+
+<section class="gw-page-hero has-image">
+  <div class="gw-page-hero-image">
+    <img src="https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=1800&q=80&auto=format&fit=crop" alt="Excavator working on a construction site in <%= it.city %>" loading="eager" fetchpriority="high" width="1800" height="900" />
+  </div>
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>Equipment</nav>
+    <span class="gw-eyebrow">Our fleet</span>
+    <h1>The right machine for the access you have.</h1>
+    <p class="gw-page-sub">We size the iron to the lot, not the other way around. Tight side-yard? Compact excavator. Open pad? Bigger machine. Either way, the spec gets hit.</p>
+  </div>
+</section>
+
+<section class="gw-section">
+  <div class="gw-container">
+    <span class="gw-eyebrow">What we run</span>
+    <h2 style="margin-top:12px;margin-bottom:32px">Built for residential and light commercial.</h2>
+
+    <div class="gw-equip-grid">
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=900&q=80&auto=format&fit=crop" alt="Compact excavator working on a residential dig in <%= it.city %>" loading="lazy" width="900" height="675" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">2 to 20 ton class</div>
+          <h3>Excavators</h3>
+          <p>From compact machines that fit through a four-foot gate to standard-size iron for open pads. We match the machine to the access and the spec, not the other way around.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1649807533255-bbc9c9fb7d77?w=900&q=80&auto=format&fit=crop" alt="Site-prep machinery working a graded job site" loading="lazy" width="900" height="675" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">Skid steers, trenchers, compactors</div>
+          <h3>Loaders & Site Support</h3>
+          <p>Skid steers for spoils handling and finish grading. Trenchers for clean utility cuts. Compactors and laser-leveled grade control for the finish work.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=900&q=80&auto=format&fit=crop" alt="Heavy construction equipment on a job site" loading="lazy" width="900" height="675" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">5 to 10 yard trucks</div>
+          <h3>Hauling & Trucking</h3>
+          <p>Direct haul-off and import. No coordinating with a separate trucking vendor. Spoils gone same-day. Clean fill brought in when you need it.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="gw-section gw-why">
+  <div class="gw-container">
+    <span class="gw-eyebrow">Maintained, insured, ready</span>
+    <h2>The boring stuff that matters.</h2>
+    <div class="gw-why-grid">
+      <div class="gw-why-item">
+        <h3>Daily walkarounds.</h3>
+        <p>Every machine inspected before the first load of the day. Hydraulic leaks, tracks, lights, swing — all checked.</p>
+      </div>
+      <div class="gw-why-item">
+        <h3>Insured & DOT compliant.</h3>
+        <p>Trucks DOT-inspected and certificates current. Equipment insured. We can email COIs to your GC before mob.</p>
+      </div>
+      <div class="gw-why-item">
+        <h3>Backup iron available.</h3>
+        <p>If a machine throws a code mid-job, we swap it before you notice. We don't lose a day to a hydraulic line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%~ include('../partials/cta-band.html', it) %>
+</main>
+<%~ include('../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

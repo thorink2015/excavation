@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../../partials/header.html', it) %>
+
+<main id="main">
+
+<section class="gw-page-hero">
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span><a href="/<%= it.slug %>/services/">Services</a><span class="gw-breadcrumb-sep">/</span>Demolition</nav>
+    <span class="gw-eyebrow">Service</span>
+    <h1>Demolition in <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></h1>
+    <p class="gw-page-sub">Small-to-medium structure tear-outs: sheds, garages, slabs, pools, partial interior demo. Permits handled, debris hauled, site left clean.</p>
+    <div class="gw-pill-row">
+      <span class="gw-pill gw-pill-clay">Permits handled</span>
+      <span class="gw-pill">Debris hauled</span>
+      <span class="gw-pill">Utilities disconnected</span>
+    </div>
+  </div>
+</section>
+
+<section class="gw-content-grid gw-container">
+  <article class="gw-prose">
+    <h2>What we tear out</h2>
+    <ul>
+      <li>Detached garages and sheds</li>
+      <li>Concrete slabs, driveways, and walkways</li>
+      <li>In-ground pools and spas</li>
+      <li>ADU and granny-flat structures</li>
+      <li>Partial interior demo (walls, finishes, flooring)</li>
+      <li>Old foundations and footings</li>
+      <li>Carports, fencing, retaining walls</li>
+    </ul>
+    <p>We don't do full house demolition or anything over two stories — that's a specialty trade and we'll refer you to one we trust.</p>
+
+    <h2>What's included in the quote</h2>
+    <ol>
+      <li><strong>Permit pull.</strong> Most demo work needs a permit in <%= it.city %>. We handle the paperwork.</li>
+      <li><strong>Utility disconnect coordination.</strong> Gas, electric, water capped before we start.</li>
+      <li><strong>Asbestos / lead survey</strong> if the structure is pre-1980. Required by law for most jurisdictions.</li>
+      <li><strong>Tear-out</strong> using the right machine for the size.</li>
+      <li><strong>Sort and haul.</strong> Recyclable concrete, metal, and wood goes to recycling. Trash goes to the dump.</li>
+      <li><strong>Site cleanup</strong> — graded flat, debris-free, ready for what comes next.</li>
+    </ol>
+
+    <h2>Pool demolition specifics</h2>
+    <p>Two ways to demo a pool, and your city or county dictates which one is legal:</p>
+    <p><strong>Partial demo (cap-in-place):</strong> punch holes in the bottom, break down the upper walls, fill with rubble and clean fill. Cheaper and faster. <strong>Disclosure required</strong> on resale in most areas.</p>
+    <p><strong>Full demo (full removal):</strong> rip the shell out entirely, haul off all rubble, backfill with clean engineered fill, compact in lifts. No disclosure issues, can build on top of it later.</p>
+    <p>If you're planning to rebuild on the footprint, do the full demo. If you're filling for landscaping only, partial is usually fine. We'll tell you which one your jurisdiction requires.</p>
+
+    <h2>What we don't do</h2>
+    <ul>
+      <li>Hazardous material abatement (we coordinate with a licensed abatement crew)</li>
+      <li>Implosion or controlled blasting</li>
+      <li>Full multi-story or commercial high-rise demo</li>
+    </ul>
+  </article>
+
+  <aside class="gw-sidebar" aria-label="Related services">
+    <h3>Other services</h3>
+    <ul>
+      <li><a href="/<%= it.slug %>/services/excavation/">Excavation</a></li>
+      <li><a href="/<%= it.slug %>/services/utility-trenching/">Utility Trenching</a></li>
+      <li><a href="/<%= it.slug %>/services/grading/">Grading</a></li>
+      <li><a href="/<%= it.slug %>/services/demolition/" aria-current="page">Demolition</a></li>
+      <li><a href="/<%= it.slug %>/services/">All services →</a></li>
+    </ul>
+    <div class="gw-sidebar-divider"></div>
+    <h3>Quick contact</h3>
+    <ul>
+      <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+      <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+    </ul>
+    <div class="gw-sidebar-cta">
+      <p>Need a number on a demo?</p>
+      <a href="/<%= it.slug %>/contact/">Get a quote →</a>
+    </div>
+  </aside>
+</section>
+
+<%~ include('../../partials/cta-band.html', it) %>
+</main>
+<%~ include('../../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

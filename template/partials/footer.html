@@ -1,0 +1,56 @@
+<footer class="gw-footer">
+  <div class="gw-container">
+    <div class="gw-footer-grid-full">
+      <div class="gw-footer-brand">
+        <div class="gw-footer-logo">
+          <span class="gw-logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-4 4 3 5-6 5 6"/><path d="M3 21h18"/></svg>
+          </span>
+          <span class="gw-footer-logo-text"><%= it.brand_name %><span class="gw-logo-dot">.</span></span>
+        </div>
+        <p style="max-width:38ch;margin-top:14px"><%= it.business_name %> is an excavation and site-prep crew serving <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> and the surrounding area. Licensed, insured, owner-operated.</p>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="/<%= it.slug %>/services/excavation/">Excavation</a></li>
+          <li><a href="/<%= it.slug %>/services/utility-trenching/">Utility Trenching</a></li>
+          <li><a href="/<%= it.slug %>/services/grading/">Grading</a></li>
+          <li><a href="/<%= it.slug %>/services/demolition/">Demolition</a></li>
+          <li><a href="/<%= it.slug %>/services/">All services</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/<%= it.slug %>/about/">About</a></li>
+          <li><a href="/<%= it.slug %>/equipment/">Our equipment</a></li>
+          <li><a href="/<%= it.slug %>/industries/">Industries we serve</a></li>
+          <li><a href="/<%= it.slug %>/service-area/">Service area</a></li>
+          <li><a href="/<%= it.slug %>/contact/">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
+          <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+          <% if (it.address_full) { %><li><%= it.address_full %></li><% } %>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gw-footer-strip">
+      <%~ include('./trust-badges.html', { ...it, size: 'sm' }) %>
+      <%~ include('./social-icons.html', it) %>
+    </div>
+
+    <div class="gw-footer-bottom">
+      <div>&copy; <span class="gw-year">2026</span> <%= it.business_name %>. All rights reserved.</div>
+      <div class="gw-footer-legal">
+        <a href="/<%= it.slug %>/privacy/">Privacy</a>
+        <a href="/<%= it.slug %>/terms/">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
