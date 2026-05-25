@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+*.log
+.env
+.env.local
+
+# Generated CSV with deployed URLs (regenerated each build)
+data/businesses.with-urls.csv
