@@ -16,7 +16,7 @@
   --gw-body: 'Archivo', system-ui, sans-serif;
   --gw-brand: 'Outfit', system-ui, sans-serif;
   --gw-container: 1200px;
-  --gw-pad: clamp(24px, 4vw, 48px);
+  --gw-pad: clamp(28px, 4vw, 48px);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -44,7 +44,13 @@ p { margin: 0; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; height: auto; display: block; }
 
-.gw-container { max-width: var(--gw-container); margin: 0 auto; padding-left: var(--gw-pad); padding-right: var(--gw-pad); }
+.gw-container {
+  max-width: var(--gw-container);
+  margin: 0 auto;
+  /* max() with env() respects iPhone notch / curved-edge safe areas; falls back to var(--gw-pad) on regular devices. */
+  padding-left:  max(var(--gw-pad), env(safe-area-inset-left));
+  padding-right: max(var(--gw-pad), env(safe-area-inset-right));
+}
 
 .gw-eyebrow {
   font-family: var(--gw-body); font-weight: 600; font-size: 12px;
