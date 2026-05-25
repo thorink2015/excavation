@@ -106,9 +106,11 @@ if (fs.existsSync(CSV)) {
   const rows = parseCsv(fs.readFileSync(CSV, 'utf8'), {
     columns: true, skip_empty_lines: true, trim: true, bom: true, relax_column_count: true,
   });
-  if (businessSlugs.size !== rows.length) {
+  const LIMIT = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : null;
+  const expected = LIMIT ? Math.min(LIMIT, rows.length) : rows.length;
+  if (businessSlugs.size !== expected) {
     hardErrors++;
-    console.error(`\n✗ business slug count ${businessSlugs.size} != CSV row count ${rows.length}`);
+    console.error(`\n✗ business slug count ${businessSlugs.size} != expected ${expected}`);
   }
   // Each business should have the same number of pages (verifies no page failed to render).
   const pagesPerBusiness = new Map();
