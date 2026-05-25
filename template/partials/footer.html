@@ -2,7 +2,9 @@
   <div class="gw-container">
     <div class="gw-footer-grid-full">
       <div class="gw-footer-brand">
-        <div class="gw-logo" style="color:#fff;margin-bottom:12px;font-size:1.5rem"><%= it.business_name %><span class="gw-dot">.</span></div>
+        <div class="gw-logo" style="color:#fff;margin-bottom:12px;font-size:1.5rem">
+          <span class="gw-logo-text"><%= it.brand_name %><span class="gw-logo-dot">.</span></span>
+        </div>
         <p style="max-width:38ch"><%= it.business_name %> is an excavation and site-prep crew serving <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %> and the surrounding area. Licensed, insured, owner-operated.</p>
       </div>
       <div>
@@ -34,6 +36,12 @@
         </ul>
       </div>
     </div>
+
+    <div class="gw-footer-strip">
+      <%~ include('./trust-badges.html', { ...it, size: 'sm' }) %>
+      <%~ include('./social-icons.html', it) %>
+    </div>
+
     <div class="gw-footer-bottom">
       <div>&copy; <span class="gw-year">2026</span> <%= it.business_name %>. All rights reserved.</div>
       <div class="gw-footer-legal">

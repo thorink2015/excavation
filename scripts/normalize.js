@@ -25,6 +25,10 @@ const DEFAULT_SERVICES = ['excavation', 'trenching', 'grading', 'demolition', 'c
 
 export function normalize(row) {
   const business_name = pick(row.business_name, row.name) || 'Local Excavation';
+  // brand_name is the version used everywhere the period dot accent is appended
+  // (logo, footer brand). Strips a trailing "." so "Moore's Gravel Inc." doesn't
+  // render as "Moore's Gravel Inc.." when the dot accent fires.
+  const brand_name = business_name.replace(/\.+$/, '');
   const city          = str(row.city);
   const state         = str(row.state_code) || str(row.state);
   const state_code    = str(row.state_code) || twoLetterState(row.state);
@@ -52,8 +56,17 @@ export function normalize(row) {
   const seo_title       = `Excavation ${city}${state_code ? ', ' + state_code : ''} | ${business_name}`.slice(0, 70);
   const seo_description = `${business_name}: excavation, trenching, and site prep in ${city}${state_code ? ', ' + state_code : ''}. Quotes in 24 hours. Call ${phone}.`.slice(0, 160);
 
+  // Social URLs — optional; only render in template if present.
+  const social = {
+    facebook:  str(row.company_facebook)  || str(row.facebook),
+    instagram: str(row.company_instagram) || str(row.instagram),
+    linkedin:  str(row.company_linkedin)  || str(row.linkedin),
+  };
+
   return {
     business_name,
+    brand_name,
+    social,
     phone,
     phone_e164,
     email,
