@@ -1,0 +1,1007 @@
+<!--
+  GROUNDWORK SOLUTIONS LLC — HOME PAGE
+  Self-contained HTML + CSS for GHL custom code block.
+  Class prefix: .gw-  (avoids conflicts with GHL theme styles)
+  Paste between your GHL menu and your GHL contact form.
+-->
+
+<style>
+  /* ==========================================================================
+     GROUNDWORK — Home page styles (scoped with .gw- prefix)
+     ========================================================================== */
+
+  @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&display=swap');
+
+  .gw-root {
+    /* Color tokens */
+    --gw-bg: #F7F5F0;
+    --gw-surface: #FFFFFF;
+    --gw-ink: #1C1A17;
+    --gw-ink-2: #5A544C;
+    --gw-line: #E5DFD3;
+    --gw-clay: #B85838;
+    --gw-clay-deep: #8B3F26;
+    --gw-clay-soft: #F0E4D6;
+
+    /* Type tokens */
+    --gw-display: 'Archivo Black', sans-serif;
+    --gw-body: 'Archivo', sans-serif;
+
+    /* Layout tokens */
+    --gw-container: 1200px;
+    --gw-pad: clamp(20px, 4vw, 48px);
+
+    background: var(--gw-bg);
+    color: var(--gw-ink);
+    font-family: var(--gw-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .gw-root *,
+  .gw-root *::before,
+  .gw-root *::after {
+    box-sizing: border-box;
+  }
+
+  .gw-root h1, .gw-root h2, .gw-root h3, .gw-root h4 {
+    font-family: var(--gw-display);
+    font-weight: 900;
+    color: var(--gw-ink);
+    margin: 0;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .gw-root p { margin: 0; }
+
+  .gw-root a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .gw-container {
+    max-width: var(--gw-container);
+    margin: 0 auto;
+    padding-left: var(--gw-pad);
+    padding-right: var(--gw-pad);
+  }
+
+  .gw-eyebrow {
+    font-family: var(--gw-body);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gw-clay);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .gw-eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--gw-clay);
+  }
+
+  .gw-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 28px;
+    font-family: var(--gw-body);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .gw-btn-primary {
+    background: var(--gw-clay);
+    color: #fff;
+    border-color: var(--gw-clay);
+  }
+  .gw-btn-primary:hover {
+    background: var(--gw-clay-deep);
+    border-color: var(--gw-clay-deep);
+  }
+
+  .gw-btn-ghost {
+    background: transparent;
+    color: var(--gw-ink);
+    border-color: var(--gw-ink);
+  }
+  .gw-btn-ghost:hover {
+    background: var(--gw-ink);
+    color: #fff;
+  }
+
+  .gw-btn-light {
+    background: #fff;
+    color: var(--gw-ink);
+    border-color: #fff;
+  }
+  .gw-btn-light:hover {
+    background: var(--gw-clay);
+    color: #fff;
+    border-color: var(--gw-clay);
+  }
+
+  .gw-btn-arrow svg { transition: transform 0.2s ease; }
+  .gw-btn-arrow:hover svg { transform: translateX(4px); }
+
+  /* ===== HERO ===== */
+  .gw-hero {
+    padding: clamp(60px, 8vw, 120px) 0 clamp(60px, 8vw, 100px);
+    border-bottom: 1px solid var(--gw-line);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .gw-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+  }
+
+  .gw-hero-eyebrow {
+    margin-bottom: 28px;
+  }
+
+  .gw-hero h1 {
+    font-size: clamp(40px, 6vw, 76px);
+    margin-bottom: 28px;
+  }
+
+  .gw-hero h1 .gw-clay-text {
+    color: var(--gw-clay);
+  }
+
+  .gw-hero-sub {
+    font-size: clamp(16px, 1.4vw, 19px);
+    color: var(--gw-ink-2);
+    max-width: 520px;
+    margin-bottom: 36px;
+  }
+
+  .gw-hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 40px;
+  }
+
+  .gw-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--gw-line);
+  }
+
+  .gw-hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--gw-ink-2);
+  }
+  .gw-hero-meta-item svg {
+    color: var(--gw-clay);
+    flex-shrink: 0;
+  }
+  .gw-hero-meta-item strong {
+    color: var(--gw-ink);
+    font-weight: 600;
+  }
+
+  .gw-hero-image {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+  }
+  .gw-hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.05) saturate(0.95);
+  }
+  .gw-hero-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(28, 26, 23, 0.35) 100%);
+    pointer-events: none;
+  }
+  .gw-hero-tag {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    color: #fff;
+    font-family: var(--gw-display);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .gw-hero-tag::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: var(--gw-clay);
+    border-radius: 50%;
+  }
+
+  /* ===== TRUST STRIP ===== */
+  .gw-trust {
+    background: var(--gw-ink);
+    color: #fff;
+    padding: 36px 0;
+  }
+  .gw-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    align-items: center;
+  }
+  .gw-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: #fff;
+  }
+  .gw-trust-item svg {
+    color: var(--gw-clay);
+    flex-shrink: 0;
+  }
+  .gw-trust-item-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 2px;
+  }
+  .gw-trust-item-value {
+    font-family: var(--gw-display);
+    font-size: 18px;
+    line-height: 1.1;
+    color: #fff;
+  }
+
+  /* ===== SECTION header pattern ===== */
+  .gw-section {
+    padding: clamp(72px, 10vw, 130px) 0;
+  }
+  .gw-section-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 4vw, 64px);
+    align-items: end;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+  .gw-section-head h2 {
+    font-size: clamp(32px, 4.2vw, 56px);
+  }
+  .gw-section-head p {
+    color: var(--gw-ink-2);
+    max-width: 480px;
+    font-size: 16px;
+  }
+  .gw-eyebrow-block {
+    margin-bottom: 16px;
+  }
+
+  /* ===== SERVICES ===== */
+  .gw-services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--gw-line);
+    border: 1px solid var(--gw-line);
+  }
+  .gw-service-card {
+    background: var(--gw-bg);
+    padding: 36px 28px;
+    display: flex;
+    flex-direction: column;
+    transition: background 0.25s ease;
+    cursor: pointer;
+    min-height: 280px;
+  }
+  .gw-service-card:hover {
+    background: var(--gw-clay-soft);
+  }
+  .gw-service-icon {
+    color: var(--gw-clay);
+    margin-bottom: 28px;
+  }
+  .gw-service-card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .gw-service-card p {
+    color: var(--gw-ink-2);
+    font-size: 14.5px;
+    line-height: 1.55;
+    flex-grow: 1;
+  }
+  .gw-service-card-arrow {
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gw-ink);
+  }
+  .gw-service-card-arrow svg { transition: transform 0.2s ease; }
+  .gw-service-card:hover .gw-service-card-arrow svg { transform: translateX(4px); }
+
+  .gw-services-footer {
+    margin-top: 48px;
+    text-align: center;
+  }
+
+  /* ===== HOW IT WORKS ===== */
+  .gw-how {
+    background: var(--gw-clay-soft);
+  }
+  .gw-how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(28, 26, 23, 0.08);
+    border: 1px solid rgba(28, 26, 23, 0.08);
+  }
+  .gw-how-step {
+    background: var(--gw-clay-soft);
+    padding: 40px 32px;
+    position: relative;
+  }
+  .gw-how-num {
+    font-family: var(--gw-display);
+    font-size: 56px;
+    color: var(--gw-clay);
+    line-height: 1;
+    margin-bottom: 24px;
+    display: block;
+  }
+  .gw-how-step h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  .gw-how-step p {
+    color: var(--gw-ink-2);
+    font-size: 15px;
+    max-width: 320px;
+  }
+
+  /* ===== WHO WE WORK WITH ===== */
+  .gw-who {
+    background: var(--gw-bg);
+  }
+  .gw-who-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--gw-line);
+    border-left: 1px solid var(--gw-line);
+  }
+  .gw-who-item {
+    padding: 32px 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-right: 1px solid var(--gw-line);
+    border-bottom: 1px solid var(--gw-line);
+    transition: background 0.2s ease;
+    background: var(--gw-bg);
+  }
+  .gw-who-item:hover { background: #fff; }
+  .gw-who-icon {
+    color: var(--gw-clay);
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .gw-who-item h4 {
+    font-size: 16px;
+    font-family: var(--gw-display);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+  .gw-who-item p {
+    font-size: 14px;
+    color: var(--gw-ink-2);
+    line-height: 1.5;
+  }
+
+  /* ===== SERVICE AREA ===== */
+  .gw-area {
+    background: var(--gw-ink);
+    color: #fff;
+  }
+  .gw-area .gw-section-head h2 { color: #fff; }
+  .gw-area .gw-section-head p { color: rgba(255,255,255,0.65); }
+  .gw-area .gw-eyebrow { color: var(--gw-clay); }
+  .gw-area .gw-eyebrow::before { background: var(--gw-clay); }
+
+  .gw-cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .gw-city {
+    padding: 10px 18px;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+  }
+  .gw-city:hover {
+    background: var(--gw-clay);
+    border-color: var(--gw-clay);
+  }
+  .gw-counties {
+    color: rgba(255,255,255,0.7);
+    font-size: 14px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+  .gw-counties strong { color: #fff; font-weight: 600; }
+
+  /* ===== ABOUT TEASER ===== */
+  .gw-about {
+    background: var(--gw-bg);
+  }
+  .gw-about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+  }
+  .gw-about-image {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    position: relative;
+  }
+  .gw-about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: contrast(1.05) saturate(0.95);
+  }
+  .gw-about h2 {
+    font-size: clamp(32px, 4.2vw, 52px);
+    margin-bottom: 28px;
+  }
+  .gw-about-body {
+    color: var(--gw-ink-2);
+    font-size: 16px;
+    margin-bottom: 16px;
+    max-width: 520px;
+  }
+  .gw-about-owner {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid var(--gw-line);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .gw-about-owner-name {
+    font-family: var(--gw-display);
+    font-size: 16px;
+    line-height: 1.2;
+  }
+  .gw-about-owner-title {
+    font-size: 13px;
+    color: var(--gw-ink-2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .gw-about-owner-mark {
+    width: 48px;
+    height: 48px;
+    background: var(--gw-clay);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--gw-display);
+    font-size: 18px;
+  }
+
+  /* ===== BIG CTA STRIP ===== */
+  .gw-cta {
+    background: var(--gw-clay);
+    color: #fff;
+    padding: clamp(60px, 8vw, 96px) 0;
+  }
+  .gw-cta-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+  .gw-cta h2 {
+    color: #fff;
+    font-size: clamp(32px, 4.5vw, 56px);
+    margin-bottom: 16px;
+  }
+  .gw-cta-sub {
+    color: rgba(255,255,255,0.85);
+    font-size: 17px;
+    max-width: 480px;
+  }
+  .gw-cta-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .gw-cta-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: #fff;
+    font-family: var(--gw-display);
+    font-size: clamp(24px, 3vw, 36px);
+    line-height: 1;
+    transition: opacity 0.2s ease;
+  }
+  .gw-cta-phone:hover { opacity: 0.85; }
+  .gw-cta-phone svg { color: #fff; }
+  .gw-cta-phone-label {
+    font-family: var(--gw-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 1024px) {
+    .gw-services-grid { grid-template-columns: repeat(2, 1fr); }
+    .gw-who-grid { grid-template-columns: repeat(2, 1fr); }
+    .gw-trust-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  }
+
+  @media (max-width: 768px) {
+    .gw-hero-grid { grid-template-columns: 1fr; }
+    .gw-hero-image { aspect-ratio: 4 / 3; order: -1; margin-bottom: 8px; }
+    .gw-section-head { grid-template-columns: 1fr; align-items: start; }
+    .gw-how-grid { grid-template-columns: 1fr; }
+    .gw-about-grid { grid-template-columns: 1fr; }
+    .gw-about-image { aspect-ratio: 4 / 3; }
+    .gw-cta-grid { grid-template-columns: 1fr; }
+    .gw-cta-right { align-items: flex-start; }
+    .gw-trust { padding: 24px 0; }
+    .gw-trust-item-value { font-size: 16px; }
+  }
+
+  @media (max-width: 540px) {
+    .gw-services-grid { grid-template-columns: 1fr; }
+    .gw-who-grid { grid-template-columns: 1fr; }
+    .gw-trust-grid { grid-template-columns: 1fr; gap: 16px; }
+    .gw-hero-ctas .gw-btn { flex: 1 1 auto; }
+    .gw-hero-meta { gap: 16px; }
+  }
+</style>
+
+<div class="gw-root">
+
+  <!-- ============== HERO ============== -->
+  <section class="gw-hero">
+    <div class="gw-container gw-hero-grid">
+
+      <div class="gw-hero-text">
+        <span class="gw-eyebrow gw-hero-eyebrow">Northern California Site Prep</span>
+
+        <h1>
+          Site prep that doesn't <span class="gw-clay-text">slow your build.</span>
+        </h1>
+
+        <p class="gw-hero-sub">
+          Excavation, trenching, breaking, clearing, and grading across Greater Sacramento and Placer County. Quotes back in 24 hours. Sites left clean. No surprise line items.
+        </p>
+
+        <div class="gw-hero-ctas">
+          <a href="#contact" class="gw-btn gw-btn-primary gw-btn-arrow">
+            Get a Free Quote
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="tel:5305598502" class="gw-btn gw-btn-ghost">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            530-559-8502
+          </a>
+        </div>
+
+        <div class="gw-hero-meta">
+          <div class="gw-hero-meta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span><strong>24 hour</strong> quote turnaround</span>
+          </div>
+          <div class="gw-hero-meta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span><strong>Licensed & insured</strong> in California</span>
+          </div>
+          <div class="gw-hero-meta-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Based in <strong>Rocklin, CA</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gw-hero-image">
+        <span class="gw-hero-tag">On Site Now</span>
+        <img src="https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=1200&q=80&auto=format&fit=crop" alt="Excavator at work on a Northern California job site" loading="eager">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== TRUST STRIP ============== -->
+  <section class="gw-trust">
+    <div class="gw-container gw-trust-grid">
+
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div>
+          <div class="gw-trust-item-label">Quote in</div>
+          <div class="gw-trust-item-value">24 Hours</div>
+        </div>
+      </div>
+
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M20 7h-3V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM9 4h6v3H9V4z"/></svg>
+        <div>
+          <div class="gw-trust-item-label">Owner</div>
+          <div class="gw-trust-item-value">Operated</div>
+        </div>
+      </div>
+
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <div>
+          <div class="gw-trust-item-label">CA</div>
+          <div class="gw-trust-item-value">Licensed & Insured</div>
+        </div>
+      </div>
+
+      <div class="gw-trust-item">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <div>
+          <div class="gw-trust-item-label">Serving</div>
+          <div class="gw-trust-item-value">Greater Sacramento</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== SERVICES ============== -->
+  <section class="gw-section">
+    <div class="gw-container">
+
+      <div class="gw-section-head">
+        <div>
+          <div class="gw-eyebrow-block"><span class="gw-eyebrow">What we do</span></div>
+          <h2>The dirty work that everyone else builds on top of.</h2>
+        </div>
+        <p>
+          We handle the digging, breaking, and clearing that happens before anyone pours, frames, or installs. One crew. One number to call. Clean handoff to the next trade.
+        </p>
+      </div>
+
+      <div class="gw-services-grid">
+
+        <div class="gw-service-card">
+          <div class="gw-service-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 17h4l3-3 3 3 4-4 4 4"/><path d="M3 21h18"/><path d="M9 8l3-3 3 3"/></svg>
+          </div>
+          <h3>Excavation</h3>
+          <p>Foundations, basements, pool digs, footings. Tracked excavators sized for tight residential lots or open commercial sites. We dig to your engineer's spec, every time.</p>
+          <span class="gw-service-card-arrow">
+            Learn more
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+
+        <div class="gw-service-card">
+          <div class="gw-service-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 7l3 14h12l3-14"/><path d="M3 7h18"/><path d="M8 11v6"/><path d="M16 11v6"/><path d="M12 11v6"/></svg>
+          </div>
+          <h3>Utility Trenching</h3>
+          <p>Water, sewer, gas, electrical. Trenched to depth and slope spec. Backfilled and compacted clean. Open-trench inspection support so the inspector signs off the first time.</p>
+          <span class="gw-service-card-arrow">
+            Learn more
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+
+        <div class="gw-service-card">
+          <div class="gw-service-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M14 4l-3 3 7 7 3-3-7-7z"/><path d="M11 7l-9 9 4 4 9-9"/><path d="M2 22l5-1"/></svg>
+          </div>
+          <h3>Concrete & Asphalt Removal</h3>
+          <p>Slabs, drives, footings, pads, and old lots broken out and hauled off. Most residential drives done in a day. Site swept and graded for the next pour or repave.</p>
+          <span class="gw-service-card-arrow">
+            Learn more
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+
+        <div class="gw-service-card">
+          <div class="gw-service-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 21h18"/><path d="M3 21l3-7 4 2 5-9 6 14"/></svg>
+          </div>
+          <h3>Clearing & Rough Grading</h3>
+          <p>Brush, debris, and old structures gone to the property line. Cut and fill to the grading plan. Pads compaction-ready for the soils engineer.</p>
+          <span class="gw-service-card-arrow">
+            Learn more
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </div>
+
+      </div>
+
+      <div class="gw-services-footer">
+        <a href="/services" class="gw-btn gw-btn-ghost gw-btn-arrow">
+          See all services
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== HOW IT WORKS ============== -->
+  <section class="gw-section gw-how">
+    <div class="gw-container">
+
+      <div class="gw-section-head">
+        <div>
+          <div class="gw-eyebrow-block"><span class="gw-eyebrow">How it works</span></div>
+          <h2>From your call to a clean site.</h2>
+        </div>
+        <p>Three steps. No chasing. No back-and-forth. We move at the pace your build needs.</p>
+      </div>
+
+      <div class="gw-how-grid">
+
+        <div class="gw-how-step">
+          <span class="gw-how-num">01</span>
+          <h3>Send the scope</h3>
+          <p>Address, project type, target start. Email, call, or use the form below. Plans help but aren't required to start.</p>
+        </div>
+
+        <div class="gw-how-step">
+          <span class="gw-how-num">02</span>
+          <h3>Quote in 24 hours</h3>
+          <p>Most jobs get a fixed-price quote inside one business day. Larger digs get a site visit first. No high-pressure follow-ups.</p>
+        </div>
+
+        <div class="gw-how-step">
+          <span class="gw-how-num">03</span>
+          <h3>We dig and hand off</h3>
+          <p>Crew shows up on the day we said. Site is left graded, swept, and inspection-ready for the next trade.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== WHO WE WORK WITH ============== -->
+  <section class="gw-section gw-who">
+    <div class="gw-container">
+
+      <div class="gw-section-head">
+        <div>
+          <div class="gw-eyebrow-block"><span class="gw-eyebrow">Who we work with</span></div>
+          <h2>Built for the trades that need site prep that doesn't slip.</h2>
+        </div>
+        <p>Different schedules, different specs, different headaches. We've worked with all of these and we know the drill.</p>
+      </div>
+
+      <div class="gw-who-grid">
+
+        <div class="gw-who-item">
+          <div class="gw-who-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg>
+          </div>
+          <div>
+            <h4>General Contractors & Custom Home Builders</h4>
+            <p>Reliable site prep for new builds, additions, and tear-downs. We hit your start date.</p>
+          </div>
+        </div>
+
+        <div class="gw-who-item">
+          <div class="gw-who-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M2 14c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M2 19c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/><path d="M2 9c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2 2-2 4-2"/></svg>
+          </div>
+          <div>
+            <h4>Pool & Spa Builders</h4>
+            <p>Dig to gunite, fiberglass, or plaster spec. Tight-lot capable. Hand off a clean hole.</p>
+          </div>
+        </div>
+
+        <div class="gw-who-item">
+          <div class="gw-who-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <div>
+            <h4>Site & Civil Contractors</h4>
+            <p>Overflow excavation, trenching, and grading on commercial and residential sites.</p>
+          </div>
+        </div>
+
+        <div class="gw-who-item">
+          <div class="gw-who-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div>
+            <h4>Utility Contractors</h4>
+            <p>Water, sewer, gas, electrical. Inspection-ready. Backfilled clean before we leave.</p>
+          </div>
+        </div>
+
+        <div class="gw-who-item">
+          <div class="gw-who-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 2L4 8v12h16V8l-8-6z"/><path d="M9 14h6"/><path d="M9 18h6"/></svg>
+          </div>
+          <div>
+            <h4>Landscape & Hardscape Contractors</h4>
+            <p>Sub-base prep that doesn't move. Old hardscape demo. Drainage routed properly.</p>
+          </div>
+        </div>
+
+        <div class="gw-who-item">
+          <div class="gw-who-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <div>
+            <h4>Property Developers & PMs</h4>
+            <p>Clearing, demo, and rough grading on a fixed schedule. One bid, one timeline.</p>
+          </div>
+        </div>
+
+        <div class="gw-who-item">
+          <div class="gw-who-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>
+          </div>
+          <div>
+            <h4>Homeowners (ADUs, Additions, Remodels)</h4>
+            <p>ADU pads, addition footings, slab demo. Hire us direct. Fixed price, clean job.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============== SERVICE AREA ============== -->
+  <section class="gw-section gw-area">
+    <div class="gw-container">
+
+      <div class="gw-section-head">
+        <div>
+          <div class="gw-eyebrow-block"><span class="gw-eyebrow">Service area</span></div>
+          <h2>Northern California, based in Rocklin.</h2>
+        </div>
+        <p>If your project is within an hour of Rocklin, we can get there. Outside that radius, ask us anyway.</p>
+      </div>
+
+      <div class="gw-cities">
+        <span class="gw-city">Rocklin</span>
+        <span class="gw-city">Roseville</span>
+        <span class="gw-city">Lincoln</span>
+        <span class="gw-city">Loomis</span>
+        <span class="gw-city">Granite Bay</span>
+        <span class="gw-city">Auburn</span>
+        <span class="gw-city">Sacramento</span>
+        <span class="gw-city">Folsom</span>
+        <span class="gw-city">El Dorado Hills</span>
+        <span class="gw-city">Elk Grove</span>
+        <span class="gw-city">Citrus Heights</span>
+        <span class="gw-city">Davis</span>
+      </div>
+
+      <div class="gw-counties">
+        Counties served: <strong>Placer, Sacramento, El Dorado, Yolo, Sutter, Nevada</strong>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== ABOUT TEASER ============== -->
+  <section class="gw-section gw-about">
+    <div class="gw-container gw-about-grid">
+
+      <div class="gw-about-image">
+        <img src="https://images.unsplash.com/photo-1649807533255-bbc9c9fb7d77?w=1000&q=80&auto=format&fit=crop" alt="Excavator working on a site preparation job" loading="lazy">
+      </div>
+
+      <div>
+        <div class="gw-eyebrow-block"><span class="gw-eyebrow">About Groundwork</span></div>
+        <h2>The site prep sub builders actually call back.</h2>
+        <p class="gw-about-body">
+          We started Groundwork to fix one thing: subs who don't show up, don't communicate, and leave a mess for the next trade. Builders shouldn't have to babysit their excavator.
+        </p>
+        <p class="gw-about-body">
+          Owner-operated. Dardi runs every job. When you call Groundwork, you talk to the guy on the machine, not a call center.
+        </p>
+
+        <a href="/about" class="gw-btn gw-btn-ghost gw-btn-arrow" style="margin-top: 8px;">
+          More about us
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+
+        <div class="gw-about-owner">
+          <div class="gw-about-owner-mark">DU</div>
+          <div>
+            <div class="gw-about-owner-name">Edward "Dardi" Ursulescu</div>
+            <div class="gw-about-owner-title">Owner / Operator</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============== BIG CTA STRIP (sits right above the GHL form) ============== -->
+  <section class="gw-cta">
+    <div class="gw-container gw-cta-grid">
+
+      <div>
+        <h2>Ready to break ground?</h2>
+        <p class="gw-cta-sub">
+          Send us the address and the scope. Most quotes go out within 24 hours. No pressure, no obligation.
+        </p>
+      </div>
+
+      <div class="gw-cta-right">
+        <a href="tel:5305598502" class="gw-cta-phone">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <div>
+            <span class="gw-cta-phone-label">Call any time</span>
+            530-559-8502
+          </div>
+        </a>
+        <a href="#contact" class="gw-btn gw-btn-light gw-btn-arrow">
+          Or send the details below
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<!--
+  END OF GROUNDWORK CUSTOM HTML.
+  The GHL form section sits below this in your GHL page builder.
+-->
