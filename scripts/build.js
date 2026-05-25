@@ -17,7 +17,7 @@ const PAGES_DIR     = path.join(TEMPLATE_DIR, 'pages');
 const HOME_PAGE     = path.join(TEMPLATE_DIR, 'home.html');
 const DIST_DIR      = path.join(ROOT, 'dist');
 
-const SITE_URL = (process.env.SITE_URL ?? 'https://excavation.pages.dev').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL ?? 'https://groundworkers.pages.dev').replace(/\/$/, '');
 
 // LIMIT=N caps the build to the first N businesses. Useful for fitting within
 // Cloudflare Pages' 20k-file-per-deploy ceiling. Slugs are still generated for

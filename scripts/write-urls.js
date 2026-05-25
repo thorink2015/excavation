@@ -16,7 +16,7 @@ const IN   = path.join(ROOT, 'data', 'businesses.csv');
 const OUT  = path.join(ROOT, 'data', 'businesses.with-urls.csv');
 const OUT_CAMPAIGN = path.join(ROOT, 'data', 'campaign-batch.csv'); // deployed-only subset
 
-const SITE_URL = (process.env.SITE_URL ?? 'https://excavation.pages.dev').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL ?? 'https://groundworkers.pages.dev').replace(/\/$/, '');
 // Default matches build.js so the `deployed` flag is accurate.
 const LIMIT    = process.env.LIMIT ? parseInt(process.env.LIMIT, 10) : 1500;
 
