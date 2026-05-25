@@ -1,21 +1,21 @@
 // Ground Workers — agency home page interactions.
 (function () {
-  // 1. Email reveal: click swaps the button for a mailto link.
-  //    Email lives in an inline <script type="application/json"> so it isn't
-  //    visible to dumb HTML scrapers but is trivially available to a real visitor.
-  var btn = document.querySelector('.gd-email-reveal');
+  // 1. Email reveal buttons (any number of them on the page).
+  //    Email lives in an inline JSON script tag so dumb scrapers don't see it
+  //    in the visible HTML. First click reveals; second click opens mailto:.
   var emailNode = document.getElementById('gd-email-data');
-  if (btn && emailNode) {
-    var email = (emailNode.textContent || '').trim();
-    btn.addEventListener('click', function () {
-      if (btn.classList.contains('is-revealed')) {
-        // Already revealed — actually open the mail client
-        window.location.href = 'mailto:' + email;
-        return;
-      }
-      btn.classList.add('is-revealed');
-      btn.textContent = email;
-      btn.setAttribute('aria-label', 'Email ' + email);
+  var email = emailNode ? (emailNode.textContent || '').trim() : '';
+  if (email) {
+    document.querySelectorAll('.gd-email-reveal').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (btn.classList.contains('is-revealed')) {
+          window.location.href = 'mailto:' + email;
+          return;
+        }
+        btn.classList.add('is-revealed');
+        btn.textContent = email;
+        btn.setAttribute('aria-label', 'Email ' + email);
+      });
     });
   }
 
@@ -32,14 +32,12 @@
     });
   }
 
-  // 3. Footer year (single source of truth)
+  // 3. Footer year
   document.querySelectorAll('.gd-year').forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
 
   // 4. Scroll-in animations via IntersectionObserver.
-  //    Adds .is-visible to .gd-fade-up elements when they enter the viewport.
-  //    Respects prefers-reduced-motion (CSS skips the transition there).
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -48,10 +46,9 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.gd-fade-up').forEach(function (el) { io.observe(el); });
   } else {
-    // Fallback: just reveal everything immediately
     document.querySelectorAll('.gd-fade-up').forEach(function (el) {
       el.classList.add('is-visible');
     });
