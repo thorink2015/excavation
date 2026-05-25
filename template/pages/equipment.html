@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head><%~ include('../partials/head.html', it) %></head>
+<body>
+
+<%~ include('../partials/header.html', it) %>
+
+<main id="main">
+
+<section class="gw-page-hero has-image">
+  <div class="gw-page-hero-image">
+    <img src="<%= it.hero_image %>?w=1800&q=80&auto=format&fit=crop" alt="Excavation equipment fleet on a job site in <%= it.city %>" loading="eager" fetchpriority="high" width="1800" height="900" />
+  </div>
+  <div class="gw-container">
+    <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span>Equipment</nav>
+    <span class="gw-eyebrow">Our fleet</span>
+    <h1>The right machine for the access you have.</h1>
+    <p class="gw-page-sub">We size the iron to the lot, not the other way around. Tight side-yard? Compact excavator. Open pad? Bigger machine. Either way, the spec gets hit.</p>
+  </div>
+</section>
+
+<section class="gw-section">
+  <div class="gw-container">
+    <span class="gw-eyebrow">Excavators & site machines</span>
+    <h2 style="margin-top:12px;margin-bottom:32px">Built for residential and light commercial.</h2>
+
+    <div class="gw-equip-grid">
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=600&q=80&auto=format&fit=crop" alt="Mini excavator on a residential job site" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">2.5–5 ton class</div>
+          <h3>Mini Excavator</h3>
+          <p>Fits through a 4-foot gate. Ideal for tight-lot foundations, pool digs, and utility runs through finished landscaping.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1649807533255-bbc9c9fb7d77?w=600&q=80&auto=format&fit=crop" alt="Compact track excavator working on graded site" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">6–9 ton class</div>
+          <h3>Compact Excavator</h3>
+          <p>The workhorse for most residential digs. Reach and bucket size for basements and full foundations without giving up access.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=600&q=80&auto=format&fit=crop" alt="Standard excavator on an open construction pad" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">12–20 ton class</div>
+          <h3>Standard Excavator</h3>
+          <p>For open commercial pads, deep utility cuts, and bigger residential digs where access isn't the constraint.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?w=600&q=80&auto=format&fit=crop" alt="Skid steer loader at a site" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">Compact / Track</div>
+          <h3>Skid Steers</h3>
+          <p>Spoils handling, finish grading, and tight-quarter loading. With grading boxes and laser receivers for pad work.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?w=600&q=80&auto=format&fit=crop" alt="Trencher cutting a utility line" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">Walk-behind / ride-on</div>
+          <h3>Trenchers</h3>
+          <p>Clean, narrow utility cuts. Faster and less disruptive than an excavator for long water, sewer, and electric runs.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1597176116047-876a32798fcc?w=600&q=80&auto=format&fit=crop" alt="Dump truck loading excavated dirt" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">10-yard / 5-yard</div>
+          <h3>Dump Trucks</h3>
+          <p>Direct haul-off and import. No coordinating with a separate trucking vendor. Spoils gone same-day.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=600&q=80&auto=format&fit=crop" alt="Plate compactor working a trench backfill" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">Plates, jumping jacks, rollers</div>
+          <h3>Compactors</h3>
+          <p>Right tool for each soil type and lift depth. Test reports available when your inspector or engineer asks.</p>
+        </div>
+      </article>
+
+      <article class="gw-equip">
+        <div class="gw-equip-image">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&auto=format&fit=crop" alt="Surveyor with laser level on a graded site" loading="lazy" width="600" height="450" />
+        </div>
+        <div class="gw-equip-body">
+          <div class="gw-equip-spec">Laser + GPS</div>
+          <h3>Grade Control</h3>
+          <p>Laser levels for finish grade. GPS rovers for commercial pad layouts. Tolerances to a fraction of an inch when the spec calls for it.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="gw-section gw-why">
+  <div class="gw-container">
+    <span class="gw-eyebrow">Maintained, insured, ready</span>
+    <h2>The boring stuff that matters.</h2>
+    <div class="gw-why-grid">
+      <div class="gw-why-item">
+        <h3>Daily walkarounds.</h3>
+        <p>Every machine inspected before the first load of the day. Hydraulic leaks, tracks, lights, swing — all checked.</p>
+      </div>
+      <div class="gw-why-item">
+        <h3>Insured & DOT compliant.</h3>
+        <p>Trucks DOT-inspected and certificates current. Equipment insured. We can email COIs to your GC before mob.</p>
+      </div>
+      <div class="gw-why-item">
+        <h3>Backup iron available.</h3>
+        <p>If a machine throws a code mid-job, we swap it before you notice. We don't lose a day to a hydraulic line.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%~ include('../partials/cta-band.html', it) %>
+</main>
+<%~ include('../partials/footer.html', it) %>
+
+<script src="/assets/site.js" defer></script>
+</body>
+</html>

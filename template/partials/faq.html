@@ -1,0 +1,16 @@
+<section class="gw-section">
+  <div class="gw-container">
+    <div style="text-align:center;margin-bottom:32px">
+      <span class="gw-eyebrow">Common questions</span>
+      <h2 style="margin:12px auto 0;max-width:24ch">Quick answers before you call.</h2>
+    </div>
+    <div class="gw-faq">
+      <% it.faqs.forEach(function (faq) { %>
+        <details class="gw-faq-item">
+          <summary class="gw-faq-q"><%= faq.q %><span class="gw-faq-q-icon" aria-hidden="true">+</span></summary>
+          <div class="gw-faq-a"><%= faq.a %></div>
+        </details>
+      <% }) %>
+    </div>
+  </div>
+</section>

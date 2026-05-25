@@ -7,7 +7,7 @@ import path from 'node:path';
 import { parse } from 'csv-parse/sync';
 import { Eta } from 'eta';
 import { buildUniqueSlugs } from './slugify.js';
-import { normalize, buildJsonLd } from './normalize.js';
+import { normalize, buildJsonLd, buildBreadcrumbLd, buildServiceLd, buildFaqLd, faqsFor } from './normalize.js';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const CSV_PATH      = path.join(ROOT, 'data', 'businesses.csv');
@@ -23,19 +23,38 @@ const SITE_URL = (process.env.SITE_URL ?? 'https://excavation.pages.dev').replac
 // `key` is a stable identifier used to highlight the active nav item;
 // `template` is relative to template/; `route` is the URL path under /<slug>/.
 const PAGES = [
-  { key: 'home',                    template: 'pages/home.html',                       route: '' },
-  { key: 'services',                template: 'pages/services.html',                   route: 'services/' },
-  { key: 'services/excavation',     template: 'pages/services/excavation.html',        route: 'services/excavation/' },
-  { key: 'services/utility-trenching', template: 'pages/services/utility-trenching.html', route: 'services/utility-trenching/' },
-  { key: 'services/grading',        template: 'pages/services/grading.html',           route: 'services/grading/' },
-  { key: 'services/demolition',     template: 'pages/services/demolition.html',        route: 'services/demolition/' },
-  { key: 'industries',              template: 'pages/industries.html',                 route: 'industries/' },
-  { key: 'service-area',            template: 'pages/service-area.html',               route: 'service-area/' },
-  { key: 'about',                   template: 'pages/about.html',                      route: 'about/' },
-  { key: 'contact',                 template: 'pages/contact.html',                    route: 'contact/' },
-  { key: 'privacy',                 template: 'pages/privacy.html',                    route: 'privacy/' },
-  { key: 'terms',                   template: 'pages/terms.html',                      route: 'terms/' },
+  { key: 'home',                    template: 'pages/home.html',                       route: '',                          crumbs: [] },
+  { key: 'services',                template: 'pages/services.html',                   route: 'services/',                 crumbs: [{ name: 'Services' }] },
+  { key: 'services/excavation',     template: 'pages/services/excavation.html',        route: 'services/excavation/',      crumbs: [{ name: 'Services', path: 'services/' }, { name: 'Excavation' }] },
+  { key: 'services/utility-trenching', template: 'pages/services/utility-trenching.html', route: 'services/utility-trenching/', crumbs: [{ name: 'Services', path: 'services/' }, { name: 'Utility Trenching' }] },
+  { key: 'services/grading',        template: 'pages/services/grading.html',           route: 'services/grading/',         crumbs: [{ name: 'Services', path: 'services/' }, { name: 'Grading' }] },
+  { key: 'services/demolition',     template: 'pages/services/demolition.html',        route: 'services/demolition/',      crumbs: [{ name: 'Services', path: 'services/' }, { name: 'Demolition' }] },
+  { key: 'equipment',               template: 'pages/equipment.html',                  route: 'equipment/',                crumbs: [{ name: 'Equipment' }] },
+  { key: 'industries',              template: 'pages/industries.html',                 route: 'industries/',               crumbs: [{ name: 'Industries' }] },
+  { key: 'service-area',            template: 'pages/service-area.html',               route: 'service-area/',             crumbs: [{ name: 'Service Area' }] },
+  { key: 'about',                   template: 'pages/about.html',                      route: 'about/',                    crumbs: [{ name: 'About' }] },
+  { key: 'contact',                 template: 'pages/contact.html',                    route: 'contact/',                  crumbs: [{ name: 'Contact' }] },
+  { key: 'privacy',                 template: 'pages/privacy.html',                    route: 'privacy/',                  crumbs: [{ name: 'Privacy Policy' }] },
+  { key: 'terms',                   template: 'pages/terms.html',                      route: 'terms/',                    crumbs: [{ name: 'Terms of Service' }] },
 ];
+
+// Page-specific hero images (Unsplash IDs verified against original Groundwork HTML
+// and known-public photos). All resized via Unsplash params at template time.
+const HERO_IMAGES = {
+  'home':                       'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
+  'services':                   'https://images.unsplash.com/photo-1581094288338-2314dddb7ece',
+  'services/excavation':        'https://images.unsplash.com/photo-1649807533255-bbc9c9fb7d77',
+  'services/utility-trenching': 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc',
+  'services/grading':           'https://images.unsplash.com/photo-1487958449943-2429e8be8625',
+  'services/demolition':        'https://images.unsplash.com/photo-1597176116047-876a32798fcc',
+  'equipment':                  'https://images.unsplash.com/photo-1605000797499-95a51c5269ae',
+  'industries':                 'https://images.unsplash.com/photo-1581094288338-2314dddb7ece',
+  'service-area':               'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
+  'about':                      'https://images.unsplash.com/photo-1504307651254-35680f356dfd',
+  'contact':                    'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
+  'privacy':                    'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
+  'terms':                      'https://images.unsplash.com/photo-1583024011792-b165975b52f5',
+};
 
 function main() {
   ensure(CSV_PATH,  'Missing data/businesses.csv. Commit your scraped CSV at that path.');
@@ -87,8 +106,19 @@ function main() {
         canonical: url,
         seo_title: titleFor(page, data),
         seo_description: descriptionFor(page, data),
+        hero_image: HERO_IMAGES[page.key] ?? HERO_IMAGES.home,
+        faqs: page.key === 'home' ? faqsFor(data) : [],
       };
       pageData.json_ld = buildJsonLd(pageData);
+      pageData.breadcrumb_ld = page.crumbs.length
+        ? buildBreadcrumbLd(SITE_URL, slug, page.crumbs)
+        : null;
+      pageData.service_ld = page.key.startsWith('services/')
+        ? buildServiceLd(pageData, page.key)
+        : null;
+      pageData.faq_ld = page.key === 'home'
+        ? buildFaqLd(pageData.faqs)
+        : null;
 
       const html = eta.render(`./${page.template}`, pageData);
       const outDir = path.join(DIST_DIR, slug, page.route);
@@ -136,6 +166,7 @@ function titleFor(page, data) {
     case 'services/utility-trenching': return `Utility Trenching${loc} | ${biz}`;
     case 'services/grading':        return `Grading${loc} | ${biz}`;
     case 'services/demolition':     return `Demolition${loc} | ${biz}`;
+    case 'equipment':               return `Equipment | ${biz}`;
     case 'industries':              return `Who We Work With | ${biz}`;
     case 'service-area':            return `Service Area | ${biz}`;
     case 'about':                   return `About | ${biz}`;
@@ -164,6 +195,8 @@ function descriptionFor(page, data) {
       return `Rough and finish grading in ${loc}. Building pads, driveways, parking lots. Laser-leveled tolerances. ${biz}.`.slice(0, 160);
     case 'services/demolition':
       return `Demolition in ${loc} for sheds, garages, slabs, and pools. Permits handled, debris hauled. ${biz}.`.slice(0, 160);
+    case 'equipment':
+      return `Equipment fleet at ${biz}: mini and standard excavators, skid steers, trenchers, dump trucks, compactors. Right machine, right job.`.slice(0, 160);
     case 'industries':
       return `${biz} works with general contractors, home builders, pool builders, developers, and homeowners across ${loc}.`.slice(0, 160);
     case 'service-area':

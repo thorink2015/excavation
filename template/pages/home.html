@@ -8,6 +8,8 @@
 
 <%~ include('../partials/header.html', it) %>
 
+<main id="main">
+
 <!-- Hero -->
 <section class="gw-hero">
   <div class="gw-container gw-hero-grid">
@@ -18,13 +20,14 @@
       <div class="gw-hero-ctas">
         <a href="/<%= it.slug %>/contact/" class="gw-btn gw-btn-primary gw-btn-arrow">
           Get a Free Quote
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
         <a href="tel:<%= it.phone_e164 %>" class="gw-btn gw-btn-ghost">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
           <%= it.phone %>
         </a>
       </div>
+      <% if (it.rating_avg) { %><div style="margin-top:24px"><%~ include('../partials/google-badge.html', it) %></div><% } %>
       <div class="gw-hero-meta">
         <div class="gw-hero-meta-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span><strong>24 hour</strong> quote turnaround</span></div>
         <div class="gw-hero-meta-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span><strong>Licensed & insured</strong></span></div>
@@ -113,7 +116,11 @@
   </div>
 </section>
 
+<%~ include('../partials/faq.html', it) %>
+
 <%~ include('../partials/cta-band.html', it) %>
+
+</main>
 <%~ include('../partials/footer.html', it) %>
 
 <script src="/assets/site.js" defer></script>

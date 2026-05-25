@@ -5,7 +5,12 @@
 
 <%~ include('../../partials/header.html', it) %>
 
-<section class="gw-page-hero">
+<main id="main">
+
+<section class="gw-page-hero has-image">
+  <div class="gw-page-hero-image">
+    <img src="<%= it.hero_image %>?w=1800&q=80&auto=format&fit=crop" alt="<%= it.business_name %> excavation work in <%= it.city %>" loading="eager" fetchpriority="high" width="1800" height="900" />
+  </div>
   <div class="gw-container">
     <nav class="gw-breadcrumb" aria-label="Breadcrumb"><a href="/<%= it.slug %>/">Home</a><span class="gw-breadcrumb-sep">/</span><a href="/<%= it.slug %>/services/">Services</a><span class="gw-breadcrumb-sep">/</span>Utility Trenching</nav>
     <span class="gw-eyebrow">Service</span>
@@ -75,6 +80,7 @@
 </section>
 
 <%~ include('../../partials/cta-band.html', it) %>
+</main>
 <%~ include('../../partials/footer.html', it) %>
 
 <script src="/assets/site.js" defer></script>
