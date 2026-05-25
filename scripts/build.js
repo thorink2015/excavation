@@ -7,7 +7,7 @@ import path from 'node:path';
 import { parse } from 'csv-parse/sync';
 import { Eta } from 'eta';
 import { buildUniqueSlugs } from './slugify.js';
-import { normalize, buildJsonLd, buildBreadcrumbLd, buildServiceLd, buildFaqLd, faqsFor } from './normalize.js';
+import { normalize, buildJsonLd, buildBreadcrumbLd, buildServiceLd, buildFaqLd, faqsFor, shouldDeploy } from './normalize.js';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const CSV_PATH      = path.join(ROOT, 'data', 'businesses.csv');
@@ -17,7 +17,7 @@ const PAGES_DIR     = path.join(TEMPLATE_DIR, 'pages');
 const HOME_PAGE     = path.join(TEMPLATE_DIR, 'home.html');
 const DIST_DIR      = path.join(ROOT, 'dist');
 
-const SITE_URL = (process.env.SITE_URL ?? 'https://excavation.pages.dev').replace(/\/$/, '');
+const SITE_URL = (process.env.SITE_URL ?? 'https://groundworkers.pages.dev').replace(/\/$/, '');
 
 // LIMIT=N caps the build to the first N businesses. Useful for fitting within
 // Cloudflare Pages' 20k-file-per-deploy ceiling. Slugs are still generated for
@@ -89,10 +89,16 @@ function main() {
   console.log(`Loaded ${rows.length} businesses.`);
 
   // Slugs are deterministic across the FULL dataset so the URL writeback CSV
-  // matches even when we only render the first LIMIT businesses.
+  // matches even when we only render the first LIMIT eligible businesses.
   const slugMap = buildUniqueSlugs(rows);
-  const buildRows = LIMIT ? rows.slice(0, LIMIT) : rows;
-  if (LIMIT) console.log(`LIMIT=${LIMIT} — rendering first ${buildRows.length} of ${rows.length} businesses.`);
+
+  // Apply the category blocklist BEFORE LIMIT — that way LIMIT counts only real
+  // excavation prospects. Anything filtered out is excluded from the deploy
+  // entirely (and write-urls.js marks them deployed=false).
+  const eligibleRows = rows.filter(shouldDeploy);
+  const buildRows = LIMIT ? eligibleRows.slice(0, LIMIT) : eligibleRows;
+  console.log(`Eligible (after category blocklist): ${eligibleRows.length} of ${rows.length}`);
+  if (LIMIT) console.log(`LIMIT=${LIMIT} — rendering first ${buildRows.length} of ${eligibleRows.length} eligible businesses.`);
 
   // Fresh dist
   fs.rmSync(DIST_DIR, { recursive: true, force: true });
@@ -167,8 +173,10 @@ function main() {
   // Agency landing page at the root
   const homeHtml = eta.render('./home.html', {
     site_url: SITE_URL,
-    agency_name:  process.env.AGENCY_NAME  ?? 'Groundwork Digital',
-    agency_email: process.env.AGENCY_EMAIL ?? 'hello@groundwork.digital',
+    agency_name:   process.env.AGENCY_NAME   ?? 'Ground Workers',
+    agency_email:  process.env.AGENCY_EMAIL  ?? 'eugen@groundworkslocal.com',
+    agency_phone:  process.env.AGENCY_PHONE  ?? '530-559-8502',
+    agency_phone_e164: '+15305598502',
     business_count: businessesBuilt,
   });
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), homeHtml);
