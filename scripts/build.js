@@ -173,8 +173,10 @@ function main() {
   // Agency landing page at the root
   const homeHtml = eta.render('./home.html', {
     site_url: SITE_URL,
-    agency_name:  process.env.AGENCY_NAME  ?? 'Groundwork Digital',
-    agency_email: process.env.AGENCY_EMAIL ?? 'hello@groundwork.digital',
+    agency_name:   process.env.AGENCY_NAME   ?? 'Ground Workers',
+    agency_email:  process.env.AGENCY_EMAIL  ?? 'eugen@groundworkslocal.com',
+    agency_phone:  process.env.AGENCY_PHONE  ?? '530-559-8502',
+    agency_phone_e164: '+15305598502',
     business_count: businessesBuilt,
   });
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), homeHtml);

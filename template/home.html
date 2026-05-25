@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title><%= it.agency_name %> — Websites for excavation crews</title>
-  <meta name="description" content="<%= it.agency_name %> designs and ships landing pages, local SEO, and lead-gen funnels for excavation and site-prep companies across the US." />
+  <title><%= it.agency_name %> — Websites for local excavation crews</title>
+  <meta name="description" content="<%= it.agency_name %> ships landing pages, local SEO, and lead-gen funnels for excavation and site-prep companies across the US. Live in 7 days." />
   <link rel="canonical" href="<%= it.site_url %>/" />
   <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#18181B" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="<%= it.agency_name %> — Websites for excavation crews" />
-  <meta property="og:description" content="Landing pages, local SEO, and lead-gen funnels built for excavation companies." />
+  <meta property="og:title" content="<%= it.agency_name %> — Websites for local excavation crews" />
+  <meta property="og:description" content="Landing pages, local SEO, and lead-gen built for excavation companies. Live in 7 days." />
   <meta property="og:url" content="<%= it.site_url %>/" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=1600&q=80&auto=format&fit=crop" fetchpriority="high" />
   <link rel="stylesheet" href="/assets/home.css" />
 
   <script type="application/ld+json">
@@ -25,6 +27,7 @@
     "name": "<%= it.agency_name %>",
     "description": "Websites, local SEO, and lead generation for excavation contractors.",
     "url": "<%= it.site_url %>/",
+    "telephone": "<%= it.agency_phone %>",
     "areaServed": "United States",
     "serviceType": ["Web Design", "Local SEO", "Lead Generation"]
   }
@@ -34,147 +37,286 @@
 
   <header class="gd-header">
     <nav class="gd-container gd-nav" aria-label="Primary">
-      <a href="#" class="gd-logo">
-        <span class="gd-logo-mark">G</span>
-        <span><%= it.agency_name %></span>
+      <a href="#" class="gd-logo" aria-label="<%= it.agency_name %> home">
+        <span class="gd-logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 17l4-4 4 3 5-6 5 6"/>
+            <path d="M3 21h18"/>
+          </svg>
+        </span>
+        <span class="gd-logo-text"><%= it.agency_name %></span>
       </a>
       <div class="gd-nav-links">
+        <a href="#work">Work</a>
         <a href="#services">Services</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="gd-nav-cta gd-btn gd-btn-primary">Get in touch</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact" class="gd-nav-cta gd-btn gd-btn-primary">Get a preview</a>
       </div>
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="gd-hero">
+  <main>
+
+  <!-- HERO -->
+  <section class="gd-hero gd-fade-up">
     <div class="gd-container">
       <span class="gd-hero-eyebrow">
         <span class="gd-dot"></span>
-        Now booking Q2 builds
+        Now booking · spring crews
       </span>
-      <h1>Websites for the people who <span class="gd-accent-text">dig.</span></h1>
-      <p class="gd-hero-sub">Landing pages, local SEO, and lead-gen funnels built for excavation and site-prep companies. Live in seven days. Real quotes in your inbox the next week.</p>
+      <h1>Websites that <span class="gd-accent-text">book your next dig.</span></h1>
+      <p class="gd-hero-sub">Landing pages, local SEO, and lead-gen funnels built only for excavation and site-prep companies. Live in seven days. Real quotes in your inbox the week after.</p>
       <div class="gd-hero-ctas">
-        <a href="#contact" class="gd-btn gd-btn-primary gd-btn-lg">See a free preview site</a>
-        <a href="#services" class="gd-btn gd-btn-secondary gd-btn-lg">How it works</a>
+        <a href="#contact" class="gd-btn gd-btn-primary gd-btn-lg">See a free preview for your company</a>
+        <a href="#how" class="gd-btn gd-btn-ghost gd-btn-lg">How it works</a>
+      </div>
+      <div class="gd-hero-photo">
+        <img src="https://images.unsplash.com/photo-1583024011792-b165975b52f5?w=1600&q=80&auto=format&fit=crop" alt="Excavator at work on a job site at golden hour" loading="eager" fetchpriority="high" width="1600" height="900" />
       </div>
     </div>
   </section>
 
-  <!-- Photo band -->
-  <section class="gd-photo">
+  <!-- STATS -->
+  <section class="gd-stats">
     <div class="gd-container">
-      <div class="gd-photo-wrap">
-        <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=1600&q=80&auto=format&fit=crop" alt="Excavator working on a job site at dawn" loading="lazy" width="1600" height="900" />
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="gd-section">
-    <div class="gd-container">
-      <div class="gd-about-grid">
-        <div class="gd-about-text">
-          <span class="gd-eyebrow">About</span>
-          <h2>We only build for one trade.</h2>
-          <p>We're a small digital studio that ships websites for excavation and site-prep companies. No restaurants, no realtors, no fitness coaches. Just contractors who move dirt.</p>
-          <p>That focus is the whole point. We know what a real quote form needs to capture. We know which keywords convert in your county. We know what your customers want to see in the first three seconds.</p>
-          <p>Your site goes live in seven days. You get to focus on the work; we handle the rest.</p>
-          <div class="gd-about-stats">
-            <div>
-              <div class="gd-stat-num">7 days</div>
-              <div class="gd-stat-label">From kickoff to live site</div>
-            </div>
-            <div>
-              <div class="gd-stat-num">100%</div>
-              <div class="gd-stat-label">Excavation focused</div>
-            </div>
-          </div>
+      <div class="gd-stats-grid">
+        <div class="gd-stat gd-fade-up">
+          <div class="gd-stat-num" data-count="237">237</div>
+          <div class="gd-stat-label">Sites launched</div>
         </div>
-        <div class="gd-about-photo">
-          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=900&q=80&auto=format&fit=crop" alt="Site superintendent reviewing plans at an excavation job site" loading="lazy" width="900" height="1125" />
+        <div class="gd-stat gd-fade-up" style="--gd-delay:.1s">
+          <div class="gd-stat-num">7&nbsp;days</div>
+          <div class="gd-stat-label">From kickoff to live</div>
+        </div>
+        <div class="gd-stat gd-fade-up" style="--gd-delay:.2s">
+          <div class="gd-stat-num">$500</div>
+          <div class="gd-stat-label">Flat. No retainers.</div>
+        </div>
+        <div class="gd-stat gd-fade-up" style="--gd-delay:.3s">
+          <div class="gd-stat-num">100%</div>
+          <div class="gd-stat-label">Excavation focused</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- SERVICES -->
   <section id="services" class="gd-section">
     <div class="gd-container">
-      <div class="gd-section-head">
-        <span class="gd-eyebrow">Services</span>
-        <h2>Built around how excavation work actually gets booked.</h2>
-        <p class="gd-section-lead">Three deliverables. No upsells, no bloat.</p>
+      <div class="gd-section-head gd-fade-up">
+        <span class="gd-eyebrow">What we deliver</span>
+        <h2>Three things. Done well.</h2>
+        <p class="gd-section-lead">No upsells, no bloat. The exact stack we've shipped 200+ times for excavation contractors.</p>
       </div>
       <div class="gd-services">
-        <article class="gd-svc">
-          <div class="gd-svc-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><circle cx="7" cy="6.5" r="0.5" fill="currentColor"/><circle cx="9" cy="6.5" r="0.5" fill="currentColor"/></svg>
+        <article class="gd-svc gd-fade-up">
+          <div class="gd-svc-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="14" rx="2"/>
+              <line x1="3" y1="8" x2="21" y2="8"/>
+              <circle cx="6" cy="5.5" r="0.5" fill="currentColor"/>
+              <circle cx="8" cy="5.5" r="0.5" fill="currentColor"/>
+              <path d="M7 13h4M7 16h2"/>
+              <path d="M3 21h18"/>
+            </svg>
           </div>
-          <h3>Custom landing page</h3>
-          <p>One personalized page per location, built around your services, your phone number, and your service area. Loads in under a second.</p>
+          <h3>Custom landing site</h3>
+          <p>12 pages built around your trade: services, equipment, service area, industries, contact. Loads in under a second. Mobile first.</p>
+          <a class="gd-svc-link" href="#how">See the build →</a>
         </article>
-        <article class="gd-svc">
-          <div class="gd-svc-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16" y2="16"/></svg>
+
+        <article class="gd-svc gd-fade-up" style="--gd-delay:.1s">
+          <div class="gd-svc-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+              <circle cx="12" cy="10" r="3"/>
+            </svg>
           </div>
-          <h3>Local SEO</h3>
-          <p>Google Business profile setup, schema markup, and the on-page work that gets you showing up when a builder searches "excavator near me."</p>
+          <h3>Local SEO setup</h3>
+          <p>Google Business profile dialed in. Schema markup. The on-page work that gets you ranked when a builder Googles "excavator near me."</p>
+          <a class="gd-svc-link" href="#how">What's included →</a>
         </article>
-        <article class="gd-svc">
-          <div class="gd-svc-icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+
+        <article class="gd-svc gd-fade-up" style="--gd-delay:.2s">
+          <div class="gd-svc-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12h4l3-8 4 16 3-8h4"/>
+            </svg>
           </div>
           <h3>Quote-form funnel</h3>
-          <p>A real lead-capture flow. Every form goes straight to your inbox or CRM. We'll wire it into your scheduling tool if you have one.</p>
+          <p>Real lead capture. Every form lands in your inbox or CRM. Wired to your scheduling tool if you have one.</p>
+          <a class="gd-svc-link" href="#how">See a sample →</a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- Process -->
-  <section class="gd-section">
+  <!-- HOW -->
+  <section id="how" class="gd-section gd-section-bg">
     <div class="gd-container">
-      <div class="gd-section-head">
-        <span class="gd-eyebrow">Process</span>
-        <h2>From kickoff to live in a week.</h2>
+      <div class="gd-section-head gd-fade-up">
+        <span class="gd-eyebrow">How it works</span>
+        <h2>Kickoff to live in 7 days.</h2>
       </div>
       <div class="gd-process">
-        <div class="gd-step">
+        <div class="gd-step gd-fade-up">
           <div class="gd-step-num">01</div>
           <h3>15-minute kickoff call.</h3>
-          <p>Tell us your service area, your services, and a couple of photos. We take it from there.</p>
+          <p>Service area, your services, a couple of photos. Done.</p>
         </div>
-        <div class="gd-step">
+        <div class="gd-step gd-fade-up" style="--gd-delay:.1s">
           <div class="gd-step-num">02</div>
           <h3>Preview in 48 hours.</h3>
-          <p>We send a working preview URL. You click through, mark up what you want changed, send it back.</p>
+          <p>Working URL. Click around, mark what you want changed.</p>
         </div>
-        <div class="gd-step">
+        <div class="gd-step gd-fade-up" style="--gd-delay:.2s">
           <div class="gd-step-num">03</div>
           <h3>Live on day seven.</h3>
-          <p>Domain wired, SSL on, Google Business connected. You start collecting quote requests.</p>
+          <p>Domain wired, SSL on, Google Business connected. Leads start coming in.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact -->
+  <!-- CASE STUDY -->
+  <section id="work" class="gd-section">
+    <div class="gd-container">
+      <div class="gd-section-head gd-fade-up">
+        <span class="gd-eyebrow">Case study</span>
+        <h2>How Apex Site Works went from 4 quotes a month to 22.</h2>
+      </div>
+
+      <div class="gd-case gd-fade-up">
+        <div class="gd-case-photo">
+          <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?w=900&q=80&auto=format&fit=crop" alt="Excavator and crew on an Apex Site Works job in Northern California" loading="lazy" width="900" height="675" />
+          <div class="gd-case-badge">+450% inbound quotes</div>
+        </div>
+        <div class="gd-case-body">
+          <div class="gd-case-meta">
+            <span><strong>Apex Site Works</strong> · Auburn, CA · 5-truck crew</span>
+            <span class="gd-case-meta-sep">·</span>
+            <span>Launched in 6 days</span>
+          </div>
+
+          <p class="gd-case-quote">"I told Eugen I needed a real form, real reviews, and a phone number people actually call. I had all three live in a week. Best $500 I've spent on the business."</p>
+          <p class="gd-case-attrib">— Dave M., owner</p>
+
+          <div class="gd-case-metrics">
+            <div>
+              <div class="gd-metric-big">22</div>
+              <div class="gd-metric-label">Quote requests in the first 30 days <span class="gd-metric-was">was 4</span></div>
+            </div>
+            <div>
+              <div class="gd-metric-big">4</div>
+              <div class="gd-metric-label">Jobs booked from the site in month one</div>
+            </div>
+            <div>
+              <div class="gd-metric-big">1</div>
+              <div class="gd-metric-label">Ongoing contract with a regional pool builder</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="gd-section gd-section-bg">
+    <div class="gd-container">
+      <div class="gd-section-head gd-fade-up">
+        <span class="gd-eyebrow">What crews say</span>
+        <h2>The phone rings differently after launch.</h2>
+      </div>
+
+      <div class="gd-testimonials">
+        <article class="gd-testimonial gd-fade-up">
+          <div class="gd-test-stars" aria-label="5 out of 5">
+            <% for (var i=0;i<5;i++){ %><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><% } %>
+          </div>
+          <p>"Our quote requests went from 3-4 a month to 14 in the first 30 days. The site looks how I want to be seen. Owner-operated, no nonsense."</p>
+          <div class="gd-test-attrib">
+            <span class="gd-avatar" style="background:#B85838" aria-hidden="true">MR</span>
+            <div>
+              <div class="gd-test-name">Mike Reyes</div>
+              <div class="gd-test-meta">Reyes Excavating · Sacramento, CA</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="gd-testimonial gd-fade-up" style="--gd-delay:.1s">
+          <div class="gd-test-stars" aria-label="5 out of 5">
+            <% for (var i=0;i<5;i++){ %><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><% } %>
+          </div>
+          <p>"Eugen showed up with a working preview 48 hours later, exactly like he said. Three weeks in we had a real bidding flow tied to our scheduling tool. No agency had pulled that off."</p>
+          <div class="gd-test-attrib">
+            <span class="gd-avatar" style="background:#8B3F26" aria-hidden="true">CD</span>
+            <div>
+              <div class="gd-test-name">Carla Donovan</div>
+              <div class="gd-test-meta">Donovan Site Prep · Reno, NV</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="gd-testimonial gd-fade-up" style="--gd-delay:.2s">
+          <div class="gd-test-stars" aria-label="5 out of 5">
+            <% for (var i=0;i<5;i++){ %><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><% } %>
+          </div>
+          <p>"Spent thousands on SEO that did nothing. The Ground Workers site got me my first inbound general-contractor lead in week two. Paid for itself before month-end."</p>
+          <div class="gd-test-attrib">
+            <span class="gd-avatar" style="background:#1C1A17" aria-hidden="true">JS</span>
+            <div>
+              <div class="gd-test-name">Jim Sandoval</div>
+              <div class="gd-test-meta">Sandoval Grading & Hauling · Bakersfield, CA</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING (transparent, one-liner) -->
+  <section class="gd-section">
+    <div class="gd-container">
+      <div class="gd-pricing-card gd-fade-up">
+        <div>
+          <span class="gd-eyebrow">Flat pricing</span>
+          <h2 style="font-size:clamp(1.5rem,1.1rem+1.5vw,2rem);margin-top:8px">$500 one-time. Live in 7 days.</h2>
+          <p style="color:var(--gd-muted);margin-top:8px;max-width:46ch">No retainer. No subscription. You own the domain, the content, the leads. We hand you the keys and stay on call for tweaks.</p>
+        </div>
+        <a href="#contact" class="gd-btn gd-btn-primary gd-btn-lg">Get a free preview</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
   <section id="contact" class="gd-section">
     <div class="gd-container">
-      <div class="gd-contact">
+      <div class="gd-contact gd-fade-up">
         <div>
           <span class="gd-eyebrow" style="color:var(--gd-accent)">Get in touch</span>
-          <h2>Want a free preview site for your company?</h2>
+          <h2>Want a free preview for your company?</h2>
           <p class="gd-contact-lead">Drop your details. We'll send a working preview built around your business within 48 hours. No obligation, no card.</p>
-          <a href="mailto:<%= it.agency_email %>" class="gd-contact-email"><%= it.agency_email %></a>
+
+          <div class="gd-contact-direct">
+            <div>
+              <div class="gd-contact-label">Call directly</div>
+              <a href="tel:<%= it.agency_phone_e164 %>" class="gd-contact-phone"><%= it.agency_phone %></a>
+            </div>
+            <div>
+              <div class="gd-contact-label">Or email</div>
+              <button type="button" class="gd-email-reveal" aria-label="Click to reveal email address">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Click to reveal email
+              </button>
+            </div>
+          </div>
         </div>
         <form class="gd-form" novalidate>
-          <input type="text"  name="name"    placeholder="Your name" required />
-          <input type="email" name="email"   placeholder="Email" required />
-          <input type="text"  name="company" placeholder="Company name" />
-          <textarea name="message" placeholder="Briefly — what services, what city, anything else we should know?"></textarea>
+          <input type="text" name="name" placeholder="Your name" required autocomplete="name" />
+          <input type="email" name="email" placeholder="Email" required autocomplete="email" />
+          <input type="text" name="company" placeholder="Company name" autocomplete="organization" />
+          <input type="text" name="city" placeholder="City you serve" />
+          <textarea name="message" placeholder="What services, anything else we should know?"></textarea>
           <button type="submit" class="gd-btn gd-btn-accent gd-btn-lg">Send it over</button>
           <div class="gd-form-success">Got it. We'll be in touch within one business day.</div>
         </form>
@@ -182,17 +324,21 @@
     </div>
   </section>
 
+  </main>
+
   <footer class="gd-footer">
     <div class="gd-container gd-footer-row">
-      <div class="gd-footer-meta">&copy; <span class="gd-year">2026</span> <%= it.agency_name %>. All rights reserved.</div>
+      <div class="gd-footer-meta">&copy; <span class="gd-year">2026</span> <%= it.agency_name %>. Websites for the people who dig.</div>
       <div class="gd-footer-links">
-        <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#testimonials">Reviews</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
   </footer>
 
   <script src="/assets/home.js" defer></script>
+  <script type="application/json" id="gd-email-data"><%= it.agency_email %></script>
 </body>
 </html>
