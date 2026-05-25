@@ -124,6 +124,11 @@ export function normalize(row) {
   const rating_avg   = num(row.rating_avg ?? row.rating);
   const review_count = num(row.review_count ?? row.reviews) ?? 0;
 
+  // Google Maps / Reviews — must be declared before address/map_embed_url which uses place_id.
+  const reviews_link_early = str(row.reviews_link)  || str(row.location_reviews_link);
+  const maps_link_early    = str(row.location_link);
+  const place_id_early     = str(row.place_id);
+
   // Services: prefer explicit `services` column, fall back to `subtypes` (scrape default)
   const rawServices = parseList(row.services ?? row.subtypes);
 
@@ -136,7 +141,9 @@ export function normalize(row) {
   const services_for_grid = pickServicesForGrid(rawServices, variant.services_first);
 
   const address_full = composeAddress({ street: address_street, city, state: state_code || state, zip });
-  const map_embed_url = mapEmbed({ address_full, business_name, city, state: state_code || state });
+  // Map embed always uses the simple query URL (no API key required, more reliable in iframes).
+  const map_embed_url    = mapEmbed({ address_full, business_name, city, state: state_code || state });
+  const map_embed_simple = map_embed_url;
 
   const stCode = state_code || state || '';
   const hero_h1_pre    = variant.h1_pre;
@@ -153,14 +160,46 @@ export function normalize(row) {
     linkedin:  str(row.company_linkedin)  || str(row.linkedin),
   };
 
+  // Google Maps + Reviews (re-aliased from the early declarations above for readability).
+  const reviews_link  = reviews_link_early;
+  const maps_link     = maps_link_early;
+  const place_id      = place_id_early;
+  const verified      = String(row.verified || '').toUpperCase() === 'TRUE';
+
+  // Email — only surface if the scraper validated it as deliverable.
+  const emailStatus   = String(row['email.emails_validator.status'] || '').toUpperCase();
+  const email_valid   = !emailStatus || emailStatus === 'RECEIVING' || emailStatus === 'VALID';
+
+  // Real per-business hero photo from Google (when present) — falls back to a generic
+  // Unsplash excavation photo at the template level.
+  const business_photo = str(row.photo);
+  const business_logo  = str(row.logo);
+  const street_view    = str(row.street_view);
+
+  // Owner / team
+  const owner_name     = str(row.full_name) || pick(row.first_name, row.last_name);
+  const first_name     = str(row.first_name);
+  const name_short     = str(row.name_for_emails) || business_name;
+
+  // Business meta (often sparse — render conditionally)
+  const founded_year   = str(row['company_insights.founded_year']);
+  const employees      = str(row['company_insights.employees']);
+  const domain         = str(row.domain);
+
+  // Working hours table for the Contact page and footer.
+  const hours_table    = parseHoursTable(row.working_hours, row.working_hours_csv_compatible);
+
   return {
     business_name,
     brand_name,
+    name_short,
     social,
     phone,
     phone_e164,
-    email,
+    email: email_valid ? email : '',
+    email_valid,
     website,
+    domain,
     address_street,
     city,
     state,
@@ -170,18 +209,60 @@ export function normalize(row) {
     description_long,
     description_short,
     hero_sub,
-    hero_image: DEFAULT_HERO,
+    // Per-business hero photo (real Google photo) wins; template falls back to DEFAULT_HERO if empty.
+    hero_image: business_photo || DEFAULT_HERO,
+    business_photo,
+    business_logo,
+    street_view,
     primary_category: primaryCategory,
     hero_h1_pre, hero_h1_accent,
     services: rawServices,
     services_for_grid,
     rating_avg,
     review_count,
+    reviews_link,
+    maps_link,
+    place_id,
+    verified,
+    owner_name,
+    first_name,
+    founded_year,
+    employees,
+    hours_table,
     map_embed_url,
+    map_embed_simple,
     seo_title,
     seo_description,
     raw: row,
   };
+}
+
+// Parse working_hours JSON into a uniform [{day, hours}] array for templates.
+function parseHoursTable(jsonStr, csvStr) {
+  if (jsonStr) {
+    try {
+      const obj = typeof jsonStr === 'string' ? JSON.parse(jsonStr) : jsonStr;
+      if (obj && typeof obj === 'object') {
+        const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+        return days.filter((d) => obj[d]).map((d) => {
+          const v = obj[d];
+          const hours = Array.isArray(v) ? v.join(', ') : String(v);
+          return { day: d, hours: hours === 'Closed' ? 'Closed' : hours };
+        });
+      }
+    } catch {}
+  }
+  // Fallback: "Monday,7AM,4:30PM|Tuesday,..." format
+  const s = String(csvStr || jsonStr || '').trim();
+  if (!s) return [];
+  if (s.includes('|')) {
+    return s.split('|').map((seg) => {
+      const [day, open, close] = seg.split(',').map((x) => x.trim());
+      if (!day) return null;
+      return { day, hours: open && close ? `${open}–${close}` : (open || 'Closed') };
+    }).filter(Boolean);
+  }
+  return [];
 }
 
 // 5 common FAQs every excavation business can answer the same way.

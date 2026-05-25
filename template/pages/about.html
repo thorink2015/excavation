@@ -22,7 +22,8 @@
 <section class="gw-content-grid gw-container">
   <article class="gw-prose">
     <h2>Who we are</h2>
-    <p><%= it.business_name %> is an owner-operated excavation and site-prep crew. We don't subcontract out the core work. The crew that quotes your job is the crew you'll see on site.</p>
+    <p><%= it.business_name %> is an owner-operated excavation and site-prep crew<% if (it.founded_year) { %>, on the job since <%= it.founded_year %><% } %>. We don't subcontract out the core work. The crew that quotes your job is the crew you'll see on site.</p>
+    <% if (it.owner_name) { %><p>Led by <%= it.owner_name %>. The number you call is the number that picks up.</p><% } %>
     <p>Most of what we do is residential and light commercial: foundation digs, utility trenching, grading, demolition, and clearing. We work directly with builders, GCs, pool contractors, and homeowners with a clear scope.</p>
 
     <h2>What we believe</h2>
@@ -50,17 +51,47 @@
   <aside class="gw-sidebar" aria-label="Quick facts">
     <h3>Quick facts</h3>
     <ul>
+      <% if (it.owner_name)    { %><li><strong style="color:var(--gw-ink)">Owner:</strong> <%= it.owner_name %></li><% } %>
+      <% if (it.founded_year)  { %><li><strong style="color:var(--gw-ink)">Founded:</strong> <%= it.founded_year %></li><% } %>
+      <% if (it.employees)     { %><li><strong style="color:var(--gw-ink)">Team:</strong> <%= it.employees %> on staff</li><% } %>
       <li><strong style="color:var(--gw-ink)">Owner-operated</strong></li>
       <li><strong style="color:var(--gw-ink)">Licensed & insured</strong></li>
       <li><strong style="color:var(--gw-ink)">24-hour quotes</strong></li>
-      <% if (it.rating_avg) { %><li><strong style="color:var(--gw-ink)"><%= it.rating_avg.toFixed(1) %>/5</strong> across <%= it.review_count %> Google reviews</li><% } %>
-      <% if (it.address_full) { %><li><strong style="color:var(--gw-ink)">Based in</strong> <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></li><% } %>
+      <% if (it.rating_avg) { %>
+        <li>
+          <strong style="color:var(--gw-ink)"><%= it.rating_avg.toFixed(1) %>/5</strong> across
+          <% if (it.reviews_link) { %>
+            <a href="<%= it.reviews_link %>" target="_blank" rel="noopener" style="text-decoration:underline;color:var(--gw-clay-deep)"><%= it.review_count %> Google reviews</a>
+          <% } else { %>
+            <%= it.review_count %> Google reviews
+          <% } %>
+        </li>
+      <% } %>
+      <% if (it.verified) { %>
+        <li>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-weight:600;color:#1a73e8">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.5 9.5 8 11 4.5-1.5 8-6 8-11V5l-8-3zm-1 14L7 12l1.4-1.4L11 13.2l4.6-4.6L17 10l-6 6z"/></svg>
+            Google Verified
+          </span>
+        </li>
+      <% } %>
+      <% if (it.address_full) { %>
+        <li>
+          <strong style="color:var(--gw-ink)">Based in</strong>
+          <% if (it.maps_link) { %>
+            <a href="<%= it.maps_link %>" target="_blank" rel="noopener" style="text-decoration:underline"><%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %></a>
+          <% } else { %>
+            <%= it.city %><% if (it.state_code) { %>, <%= it.state_code %><% } %>
+          <% } %>
+        </li>
+      <% } %>
     </ul>
     <div class="gw-sidebar-divider"></div>
     <h3>Get in touch</h3>
     <ul>
       <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
       <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
+      <% if (it.website) { %><li><a href="<%= it.website %>" target="_blank" rel="noopener"><%= it.domain || it.website %></a></li><% } %>
     </ul>
     <div class="gw-sidebar-cta">
       <p>Need a number on your project?</p>

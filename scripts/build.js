@@ -110,7 +110,11 @@ function main() {
         canonical: url,
         seo_title: titleFor(page, data),
         seo_description: descriptionFor(page, data),
-        hero_image: HERO_IMAGES[page.key] ?? HERO_IMAGES.default,
+        // Home page prefers the real Google business photo (more authentic per-business).
+        // Inner pages use page-specific Unsplash so a paving page shows paving, etc.
+        hero_image: page.key === 'home' && data.business_photo
+          ? data.business_photo
+          : (HERO_IMAGES[page.key] ?? HERO_IMAGES.default),
         faqs: page.key === 'home' ? faqsFor(data) : [],
       };
       pageData.json_ld = buildJsonLd(pageData);

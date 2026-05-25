@@ -35,7 +35,16 @@
         <ul>
           <li><a href="tel:<%= it.phone_e164 %>"><%= it.phone %></a></li>
           <% if (it.email) { %><li><a href="mailto:<%= it.email %>"><%= it.email %></a></li><% } %>
-          <% if (it.address_full) { %><li><%= it.address_full %></li><% } %>
+          <% if (it.address_full) { %>
+            <li>
+              <% if (it.maps_link) { %>
+                <a href="<%= it.maps_link %>" target="_blank" rel="noopener"><%= it.address_full %></a>
+              <% } else { %>
+                <%= it.address_full %>
+              <% } %>
+            </li>
+          <% } %>
+          <% if (it.website) { %><li><a href="<%= it.website %>" target="_blank" rel="noopener"><%= it.domain || 'Visit website' %></a></li><% } %>
         </ul>
       </div>
     </div>

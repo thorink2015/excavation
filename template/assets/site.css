@@ -494,6 +494,14 @@ a.gw-hero-meta-link:hover strong { color: var(--gw-clay-deep); }
 .gw-equip-spec { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--gw-clay-deep); font-weight: 700; margin-bottom: 8px; }
 .gw-equip-body p { font-size: .9375rem; color: var(--gw-ink-2); }
 
+/* ===== Hours table (Contact page) ===== */
+.gw-hours-card { background: #fff; border: 1px solid var(--gw-line); border-radius: 8px; padding: clamp(20px, 3vw, 32px); max-width: 520px; }
+.gw-hours-table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+.gw-hours-table th, .gw-hours-table td { padding: 10px 0; text-align: left; vertical-align: top; }
+.gw-hours-table tr + tr th, .gw-hours-table tr + tr td { border-top: 1px solid var(--gw-line); }
+.gw-hours-table th { font-weight: 600; color: var(--gw-ink); width: 40%; }
+.gw-hours-table td { color: var(--gw-ink-2); }
+
 /* ===== Service area: full-width map ===== */
 .gw-map-section { padding: 0; background: var(--gw-bg); }
 .gw-map-full {
